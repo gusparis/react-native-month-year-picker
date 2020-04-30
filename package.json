@@ -1,0 +1,39 @@
+{
+  "name": "react-native-month-picker",
+  "title": "React Native Month Picker",
+  "version": "1.0.0",
+  "description": "TODO",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gusparis/react-native-month-picker.git",
+    "baseUrl": "https://github.com/gusparis/react-native-month-picker"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": {
+    "name": "Gustavo Paris",
+    "email": "gustavodanteparis@gmail.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^1.1.0",
+    "eslint": "^6.8.0",
+    "react": "^16.9.0",
+    "react-native": "^0.61.5"
+  },
+  "dependencies": {
+    "moment": "^2.24.0"
+  }
+}
