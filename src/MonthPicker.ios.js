@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import moment from 'moment';
 
@@ -10,14 +10,11 @@ const styles = StyleSheet.create({
 });
 
 const MonthPicker = ({ onValueChange, restProps }) => {
-  const onChange = useCallback(
-    (event) => {
-      console.log('newDate', event.nativeEvent.newDate);
-      // const date = moment(event.newDate).format("MM-YYYY");
-      // onValueChange(date)
-    },
-    [onValueChange],
-  );
+  const onChange = (event) => {
+    // console.log('newDate', event.nativeEvent.newDate);
+    // const date = moment(event.newDate).format("MM-YYYY");
+    onValueChange(event.nativeEvent.newDate);
+  };
 
   return (
     <View style={styles.container}>
