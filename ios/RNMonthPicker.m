@@ -20,6 +20,8 @@
 
 NSMutableArray *months;
 NSMutableArray *years;
+NSString *selectedMonth;
+NSString *selectedYear;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -44,6 +46,9 @@ NSMutableArray *years;
         
         [self selectRow:(DEFAULT_SIZE / 2) - 7 + currentMonth inComponent:0 animated:YES];
         [self selectRow:DEFAULT_SIZE inComponent:1 animated:YES];
+
+        selectedMonth = [NSString stringWithFormat:@"%ld", ([self selectedRowInComponent:0] % 12) + 1];
+        selectedYear = years[[self selectedRowInComponent:1]];
     }
     return self;
 }
@@ -98,9 +103,20 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 - (void)pickerView:(__unused UIPickerView *)pickerView
       didSelectRow:(NSInteger)row inComponent:(__unused NSInteger)component
 {
+    switch (component) {
+        case 0:
+            selectedMonth = [NSString stringWithFormat: @"%ld", (row % 12) + 1];
+            break;
+        case 1:
+            selectedYear = [NSString stringWithFormat: @"%@", years[row]];
+            break;
+        default:
+            return;
+    }
+
     if (_onChange) {
         _onChange(@{
-          @"newDate": [NSString stringWithFormat:@"%@-%@", months[row], years[row]]
+            @"newDate": [NSString stringWithFormat: @"%@-%@", selectedMonth, selectedYear]
         });
     }
 }
