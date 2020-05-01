@@ -14,7 +14,10 @@
     "baseUrl": "https://github.com/gusparis/react-native-month-picker"
   },
   "keywords": [
-    "react-native"
+    "react-native",
+    "month-picker",
+    "ios",
+    "android"
   ],
   "author": {
     "name": "Gustavo Paris",
