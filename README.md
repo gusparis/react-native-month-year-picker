@@ -1,4 +1,4 @@
-# react-native-month-picker
+# react-native-month-year-picker
 
 React Native month picker component for iOS and Android
 
