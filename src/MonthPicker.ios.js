@@ -4,16 +4,20 @@ import moment from 'moment';
 
 import RNMonthPickerView from './RNMonthPickerNativeComponent';
 
+const NATIVE_FORMAT = 'M-YYYY';
+const DEFAULT_OUTPUT_FORMAT = 'MM-YYYY';
+
 const styles = StyleSheet.create({
   container: { height: 200, minWidth: 315 },
   picker: { flex: 1 },
 });
 
-const MonthPicker = ({ onValueChange, restProps }) => {
+const MonthPicker = ({ onValueChange, outputFormat, ...restProps }) => {
   const onChange = (event) => {
-    // console.log('newDate', event.nativeEvent.newDate);
-    // const date = moment(event.newDate).format("MM-YYYY");
-    onValueChange(event.nativeEvent.newDate);
+    const date = moment(event.nativeEvent.newDate, NATIVE_FORMAT).format(
+      outputFormat || DEFAULT_OUTPUT_FORMAT,
+    );
+    onValueChange(date);
   };
 
   return (

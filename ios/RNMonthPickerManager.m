@@ -19,5 +19,7 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(minimumDate, NSDate)
+RCT_EXPORT_VIEW_PROPERTY(maximumDate, NSDate)
 
 @end
