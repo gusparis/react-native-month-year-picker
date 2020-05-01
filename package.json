@@ -1,5 +1,5 @@
 {
-  "name": "react-native-month-picker",
+  "name": "react-native-month-year-picker",
   "title": "React Native Month Picker",
   "version": "1.0.0",
   "description": "TODO",
@@ -10,8 +10,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gusparis/react-native-month-picker.git",
-    "baseUrl": "https://github.com/gusparis/react-native-month-picker"
+    "url": "git+https://github.com/gusparis/react-native-month-year-picker.git",
+    "baseUrl": "https://github.com/gusparis/react-native-month-year-picker"
   },
   "keywords": [
     "react-native",
