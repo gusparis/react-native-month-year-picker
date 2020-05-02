@@ -14,27 +14,36 @@ jobs:
     steps:
       - checkout
       - persist_to_workspace:
-          root: .
+          root: ~/repo
           paths: .
   install_dependencies:
     <<: *defaults
+    working_directory: ~/repo
     steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Install dependencies
-          command: npm i 
+      - restore_cache:
+          keys:
+            - v2-yarn-dependencies-{{ checksum "package.json" }}
+            - v2-yarn-dependencies-
+      - run: yarn install --frozen-lockfile
+      - save_cache:
+          key: v2-yarn-dependencies-{{ checksum "package.json" }}
+          paths:
+            - './node_modules'
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - ./node_modules/*
   publish:
     <<: *defaults  
     steps:
       - attach_workspace:
-          at: .
+          at: ~/repo
       - run:
           name: Publish to NPM
-          command: npm run ci:publish
+          command: yarn ci:publish
 
 workflows:
-  version: 1
+  version: 2
   publish:
     jobs:
       - checkout_code
@@ -43,7 +52,6 @@ workflows:
             - checkout_code
       - publish:
           requires:
-            - checkout_code
             - install_dependencies
           filters:
             branches:
