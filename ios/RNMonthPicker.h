@@ -13,6 +13,7 @@
 @interface RNMonthPicker : UIPickerView
 
 @property (nonatomic, copy) RCTBubblingEventBlock onChange;
+@property (nonatomic, strong) NSDate* value;
 @property (nonatomic, strong) NSDate* minimumDate;
 @property (nonatomic, strong) NSDate* maximumDate;
 

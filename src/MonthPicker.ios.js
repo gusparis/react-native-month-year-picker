@@ -12,19 +12,19 @@ const styles = StyleSheet.create({
   picker: { flex: 1 },
 });
 
-const MonthPicker = ({ onValueChange, outputFormat, ...restProps }) => {
-  const onChange = (event) => {
+const MonthPicker = ({ onChange, outputFormat, ...restProps }) => {
+  const onValueChange = (event) => {
     const date = moment(event.nativeEvent.newDate, NATIVE_FORMAT).format(
       outputFormat || DEFAULT_OUTPUT_FORMAT,
     );
-    onValueChange(date);
+    onChange(event, date);
   };
 
   return (
     <View style={styles.container}>
       <RNMonthPickerView
         style={styles.picker}
-        onChange={onChange}
+        onChange={onValueChange}
         {...restProps}
       />
     </View>

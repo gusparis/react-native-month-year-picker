@@ -22,7 +22,7 @@ const App = () => {
     <SafeAreaView style={styles.container}>
       <Text>Month Picker Example</Text>
       <Text>{date}</Text>
-      <MonthPicker onValueChange={setDate} minimumDate={new Date()} />
+      <MonthPicker onChange={setDate} />
     </SafeAreaView>
   );
 };
