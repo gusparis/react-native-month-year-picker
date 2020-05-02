@@ -14,11 +14,11 @@ jobs:
     steps:
       - checkout
       - persist_to_workspace:
-          root: ~/repo
+          root: .
           paths: .
   install_dependencies:
     <<: *defaults
-    working_directory: ~/repo
+    working_directory: .
     steps:
       - restore_cache:
           keys:
@@ -30,14 +30,14 @@ jobs:
           paths:
             - './node_modules'
       - persist_to_workspace:
-          root: ~/repo
+          root: .
           paths:
             - ./node_modules/*
   publish:
     <<: *defaults  
     steps:
       - attach_workspace:
-          at: ~/repo
+          at: .
       - run:
           name: Publish to NPM
           command: yarn ci:publish
