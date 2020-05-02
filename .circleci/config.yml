@@ -39,6 +39,8 @@ workflows:
     jobs:
       - checkout_code
       - install_dependencies
+          requires:
+            - checkout_code
       - publish:
           requires:
             - checkout_code
