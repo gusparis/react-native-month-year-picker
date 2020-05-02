@@ -2,19 +2,17 @@
   "name": "react-native-month-year-picker",
   "title": "React Native Month Picker",
   "version": "1.0.0",
-  "description": "TODO",
+  "description": "React Native Month Picker component for iOS & Android",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "ci:publish": "yarn semantic-release",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gusparis/react-native-month-year-picker.git",
-    "baseUrl": "https://github.com/gusparis/react-native-month-year-picker"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "url": "https://github.com/gusparis/react-native-month-year-picker.git"
   },
   "keywords": [
     "react-native",
@@ -35,6 +33,7 @@
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^1.1.0",
+    "@semantic-release/git": "^9.0.0",
     "eslint": "^6.8.0",
     "react": "16.11.0",
     "react-native": "^0.62.2",
