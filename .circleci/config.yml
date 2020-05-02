@@ -20,10 +20,10 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-        at: .
+          at: .
       - run:
-        name: Install dependencies
-        command: npm i 
+          name: Install dependencies
+          command: npm i 
   publish:
     <<: *defaults  
     steps:
