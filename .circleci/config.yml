@@ -3,34 +3,46 @@
 
 version: 2.1
 
-orbs:
-  rn: react-native-community/react-native@1.2.1
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:8.9.1
 
 jobs:
   checkout_code:
-    executor: rn/linux_js
+    <<: *defaults  
     steps:
       - checkout
       - persist_to_workspace:
           root: .
           paths: .
+  install_dependencies:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+        at: .
+      -run:
+        name: Install dependencies
+        command: npm i 
   publish:
-    executor: rn/linux_js
+    <<: *defaults  
     steps:
       - attach_workspace:
           at: .
-      - rn/yarn_install
       - run:
           name: Publish to NPM
-          command: yarn ci:publish
+          command: npm run ci:publish
 
 workflows:
+  version: 1
   publish:
     jobs:
       - checkout_code
+      - install_dependencies
       - publish:
           requires:
             - checkout_code
+            - install_dependencies
           filters:
             branches:
               only: master
