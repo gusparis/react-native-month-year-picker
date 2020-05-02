@@ -13,6 +13,9 @@
     "url": "git+https://github.com/gusparis/react-native-month-year-picker.git",
     "baseUrl": "https://github.com/gusparis/react-native-month-year-picker"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "keywords": [
     "react-native",
     "month-picker",
@@ -34,7 +37,8 @@
     "@react-native-community/eslint-config": "^1.1.0",
     "eslint": "^6.8.0",
     "react": "16.11.0",
-    "react-native": "^0.62.2"
+    "react-native": "^0.62.2",
+    "semantic-release": "^17.0.7"
   },
   "dependencies": {
     "moment": "^2.24.0"
