@@ -16,13 +16,19 @@ const styles = StyleSheet.create({
 });
 
 const App = () => {
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(new Date());
+
+  const onValueChange = (event, newDate) => setDate(newDate);
 
   return (
     <SafeAreaView style={styles.container}>
       <Text>Month Picker Example</Text>
-      <Text>{date}</Text>
-      <MonthPicker onChange={setDate} />
+      <MonthPicker
+        onChange={onValueChange}
+        value={date}
+        minimumDate={new Date()}
+        maximumDate={new Date(2025, 5)}
+      />
     </SafeAreaView>
   );
 };
