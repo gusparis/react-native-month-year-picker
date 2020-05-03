@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import moment from 'moment';
+import invariant from 'invariant';
 
 import RNMonthPickerView from './RNMonthPickerNativeComponent';
 
@@ -12,7 +13,12 @@ const styles = StyleSheet.create({
   picker: { flex: 1 },
 });
 
-const MonthPicker = ({ onChange, outputFormat, ...restProps }) => {
+const MonthPicker = ({ onChange, value, outputFormat, ...restProps }) => {
+  invariant(value, 'value prop is required!');
+
+  const getLongFromDate = (selectedValue) =>
+    moment(selectedValue, outputFormat || DEFAULT_OUTPUT_FORMAT).valueOf();
+
   const onValueChange = (event) => {
     const date = moment(event.nativeEvent.newDate, NATIVE_FORMAT).format(
       outputFormat || DEFAULT_OUTPUT_FORMAT,
@@ -25,6 +31,7 @@ const MonthPicker = ({ onChange, outputFormat, ...restProps }) => {
       <RNMonthPickerView
         style={styles.picker}
         onChange={onValueChange}
+        value={getLongFromDate(value)}
         {...restProps}
       />
     </View>
