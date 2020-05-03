@@ -31,24 +31,22 @@ import { View, Button, Text } from 'react-native';
 import MonthPicker from 'react-native-month-year-picker';
 
 const App = () => {
+  const [date, setDate] = useState(new Date());
 
-  const [show, setShow] = useState(false);
-  const [date, setDate] = useState();
-
-  const toggleMonthPicker = () => setShow(!show);
-
-  const onValueChange = (event, value) => setDate(value);
+  const onValueChange = (event, newDate) => setDate(newDate);
 
   return (
-    <View>
-      <Button onPress={toggleMonthPicker} title="Open Month Picker"/>
-      <Text>`The selected date is: ${date}`</Text>
-      {show && (
-        <MonthPicker onChange={onValueChange} />
-      )}
-    </View>
-  )
-}
+    <SafeAreaView style={styles.container}>
+      <Text>Month Picker Example</Text>
+      <MonthPicker
+        onChange={onValueChange}
+        value={date}
+        minimumDate={new Date()}
+        maximumDate={new Date(2025, 5)}
+      />
+    </SafeAreaView>
+  );
+};
 
 export default App;
 
@@ -78,7 +76,7 @@ Defines the date value used in the component.
 
 #### `maximumDate` (`optional`)
 
-Defines the maximum date that can be selected.
+Defines the maximum date that can be selected. Use year and month constructor.
 
 ```js
 <RNMonthPicker maximumDate={new Date(2030, 10)} />
@@ -86,7 +84,7 @@ Defines the maximum date that can be selected.
 
 #### `minimumDate` (`optional`)
 
-Defines the minimum date that can be selected.
+Defines the minimum date that can be selected. Use year and month constructor.
 
 ```js
 <RNMonthPicker minimumDate={new Date(2020, 5)} />

@@ -29,7 +29,7 @@
   "readmeFilename": "README.md",
   "peerDependencies": {
     "react": "*",
-    "react-native": ">=0.60.0-rc.0 <1.0.x"
+    "react-native": "*"
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^1.1.0",
@@ -38,10 +38,11 @@
     "conventional-changelog-eslint": "^3.0.4",
     "eslint": "^6.8.0",
     "react": "16.11.0",
-    "react-native": "^0.62.2",
+    "react-native": "0.62.2",
     "semantic-release": "^17.0.7"
   },
   "dependencies": {
+    "invariant": "^2.2.4",
     "moment": "^2.24.0"
   }
 }
