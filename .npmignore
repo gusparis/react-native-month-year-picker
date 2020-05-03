@@ -1,2 +1,9 @@
+.circleci
 example
 screenshots
+
+.eslintrc.js
+.prettierrc.js
+.releaserc
+
+react-native-month-year-picker.podspec
