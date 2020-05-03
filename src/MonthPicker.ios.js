@@ -13,7 +13,13 @@ const styles = StyleSheet.create({
   picker: { flex: 1 },
 });
 
-const MonthPicker = ({ onChange, value, outputFormat, ...restProps }) => {
+const MonthPicker = ({
+  onChange,
+  value,
+  minimumDate,
+  maximumDate,
+  outputFormat,
+}) => {
   invariant(value, 'value prop is required!');
 
   const getLongFromDate = (selectedValue) =>
@@ -32,7 +38,8 @@ const MonthPicker = ({ onChange, value, outputFormat, ...restProps }) => {
         style={styles.picker}
         onChange={onValueChange}
         value={getLongFromDate(value)}
-        {...restProps}
+        minimumDate={getLongFromDate(minimumDate)}
+        maximumDate={getLongFromDate(maximumDate)}
       />
     </View>
   );
