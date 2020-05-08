@@ -97,5 +97,9 @@ Defines the output format in which the date will return. Defaults to `MM-YYYY`. 
 ```js
 <RNMonthPicker outputFormat="M-YY" />
 ```
-
 ### more under construction...
+
+## Running example
+1. Install required pods in example/ios by running `npx pod-install`.
+2. Run `yarn start` to start Metro Bundler.
+3. Run `yarn ios` or `yarn android`.
