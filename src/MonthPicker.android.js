@@ -1,5 +1,3 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
 import moment from 'moment';
 import invariant from 'invariant';
 
@@ -21,12 +19,16 @@ const MonthPicker = ({
   cancelButton = 'Cancel',
 }) => {
   invariant(value, 'value prop is required!');
+
+  const getLongFromDate = (selectedValue) =>
+    moment(selectedValue, outputFormat || DEFAULT_OUTPUT_FORMAT).valueOf();
+
   let picker;
 
   picker = RNMonthPickerDialogModule.open({
-    value: moment(value, outputFormat || DEFAULT_OUTPUT_FORMAT).valueOf(),
-    minimumDate: moment(minimumDate).valueOf(),
-    maximumDate: moment(maximumDate).valueOf(),
+    value: getLongFromDate(value),
+    minimumDate: getLongFromDate(minimumDate),
+    maximumDate: getLongFromDate(maximumDate),
     okButton,
     cancelButton,
   });
