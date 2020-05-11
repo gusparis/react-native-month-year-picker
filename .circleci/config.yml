@@ -6,7 +6,7 @@ version: 2.1
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/node:12.16.2
+    - image: 'circleci/node:latest'
 
 jobs:
   checkout_code:
