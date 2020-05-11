@@ -3,7 +3,7 @@ React Native month picker component for iOS and Android
 
 | android | iOS |
 | --- | --- |
-| *under construction...*|<img src="./screenshots/ios.png" width="150">
+| <img src="./screenshots/android.png" width="150">|<img src="./screenshots/ios.png" width="150">
 
 ## Getting started
 
