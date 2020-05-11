@@ -2,6 +2,7 @@ package com.gusparis.monthpicker.utils;
 
 import android.os.Build;
 import android.widget.NumberPicker;
+import android.widget.Scroller;
 
 import com.gusparis.monthpicker.R;
 
@@ -29,11 +30,11 @@ public class OnScrollListener implements NumberPicker.OnScrollListener {
     int month = monthPicker.getValue();
     int year = yearPicker.getValue();
     if (Objects.nonNull(minimumDate) && year == minimumDate.getYear() && month < minimumDate.getMonthValue() - 1) {
-      return minimumDate.getMonthValue() - month - 1;
-    } else if(Objects.nonNull(maximumDate) && year == maximumDate.getYear() && month > maximumDate.getMonthValue() - 1) {
-      return maximumDate.getMonthValue() - month - 1;
+      return minimumDate.getMonthValue() - 1;
+    } else if (Objects.nonNull(maximumDate) && year == maximumDate.getYear() && month > maximumDate.getMonthValue() - 1) {
+      return maximumDate.getMonthValue() - 1;
     } else {
-      return 0;
+      return month;
     }
   }
 
@@ -41,31 +42,23 @@ public class OnScrollListener implements NumberPicker.OnScrollListener {
   private int getSelectedYearRow() {
     int year = yearPicker.getValue();
     if (Objects.nonNull(minimumDate) && year < minimumDate.getYear()) {
-      return (minimumDate.getYear() - yearPicker.getMinValue()) - (year - yearPicker.getMinValue());
-    } else if(Objects.nonNull(maximumDate) && year > maximumDate.getYear()) {
-      return (maximumDate.getYear() - yearPicker.getMinValue()) - (year - yearPicker.getMinValue());
+      return minimumDate.getYear();
+    } else if (Objects.nonNull(maximumDate) && year > maximumDate.getYear()) {
+      return maximumDate.getYear();
     } else {
-      return 0;
+      return year;
     }
   }
 
   @Override
   @RequiresApi(api = Build.VERSION_CODES.O)
   public void onScrollStateChange(NumberPicker view, int scrollState) {
-    int movement;
-    if (view.getId() == R.id.month_picker) {
-      movement = getSelectedMonthRow();
-      if (movement != 0) {
-        new IncreaseValue(view, movement).run(0);
-      }
-    } else {
-      movement = getSelectedYearRow();
-      if (movement != 0) {
-        new IncreaseValue(view, movement).run(0);
-      }
-      movement = getSelectedMonthRow();
-      if (movement != 0) {
-        new IncreaseValue(monthPicker, movement).run(0);
+    if (scrollState == SCROLL_STATE_IDLE) {
+      if (view.getId() == R.id.month_picker) {
+        view.setValue(getSelectedMonthRow());
+      } else {
+        view.setValue(getSelectedYearRow());
+        monthPicker.setValue(getSelectedMonthRow());
       }
     }
   }

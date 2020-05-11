@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.NumberPicker;
 
 import com.gusparis.monthpicker.utils.IRNConstants;
-import com.gusparis.monthpicker.utils.IncreaseValue;
 import com.gusparis.monthpicker.utils.OnScrollListener;
 
 import java.text.DateFormatSymbols;

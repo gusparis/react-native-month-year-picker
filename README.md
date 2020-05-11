@@ -27,7 +27,7 @@ npx pod-install
 ## Usage
 ```javascript
 import React, { useState } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View, SafeAreaView, Text } from 'react-native';
 import MonthPicker from 'react-native-month-year-picker';
 
 const App = () => {
@@ -97,7 +97,22 @@ Defines the output format in which the date will return. Defaults to `MM-YYYY`. 
 ```js
 <RNMonthPicker outputFormat="M-YY" />
 ```
-### more under construction...
+
+#### `okButton` (`optional - Android only`)
+
+Picker modal confirmation button text. Default `OK`.
+
+```js
+<RNMonthPicker okButton="Confirm" />
+```
+
+#### `cancelButton` (`optional - Android only`)
+
+Picker modal cancelation button text. Default `Cancel`.
+
+```js
+<RNMonthPicker cancelButton="Abort" />
+```
 
 ## Running example
 1. Install required pods in example/ios by running `npx pod-install`.
