@@ -1,14 +1,15 @@
 {
   "name": "react-native-month-year-picker",
   "title": "React Native Month Picker",
-  "version": "1.0.4",
+  "version": "0.0.0-development",
   "description": "React Native Month Picker component for iOS & Android",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "ci:publish": "yarn semantic-release",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "cz": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "conventional-changelog-eslint": "^3.0.4",
+    "cz-conventional-changelog": "^3.2.0",
     "eslint": "^6.8.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
@@ -44,5 +46,10 @@
   "dependencies": {
     "invariant": "^2.2.4",
     "moment": "^2.24.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

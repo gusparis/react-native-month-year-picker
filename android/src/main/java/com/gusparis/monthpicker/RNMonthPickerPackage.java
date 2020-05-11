@@ -1,19 +1,19 @@
-package com.reactlibrary;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+package com.gusparis.monthpicker;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.facebook.react.bridge.JavaScriptModule;
 
-public class MonthPickerPackage implements ReactPackage {
+import java.util.Collections;
+import java.util.List;
+
+public class RNMonthPickerPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return Arrays.<NativeModule>asList(new MonthPickerModule(reactContext));
+        return Collections.<NativeModule>singletonList(
+            new RNMPickerModule(reactContext)
+        );
     }
 
     @Override
