@@ -32,18 +32,32 @@ import MonthPicker from 'react-native-month-year-picker';
 
 const App = () => {
   const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
 
-  const onValueChange = (event, newDate) => setDate(newDate);
+  const showPicker = (value) => setShow(value);
+
+  const onValueChange = (event, newDate) => {
+    const selectedDate = newDate || date;
+
+    showPicker(Platform.OS === 'ios');
+    setDate(selectedDate);
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       <Text>Month Picker Example</Text>
-      <MonthPicker
-        onChange={onValueChange}
-        value={date}
-        minimumDate={new Date()}
-        maximumDate={new Date(2025, 5)}
-      />
+      <Text>{moment(date, "MM-YYYY")}</Text>
+      <TouchableOpacity onPress={() => showPicker(true)}>
+        <Text>OPEN</Text>
+      </TouchableOpacity>
+      {show && (
+        <MonthPicker
+          onChange={onValueChange}
+          value={date}
+          minimumDate={new Date()}
+          maximumDate={new Date(2025, 5)}
+        />
+      )}
     </SafeAreaView>
   );
 };
