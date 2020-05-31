@@ -39,7 +39,7 @@ const App = () => {
   const onValueChange = (event, newDate) => {
     const selectedDate = newDate || date;
 
-    showPicker(Platform.OS === 'ios');
+    showPicker(false);
     setDate(selectedDate);
   };
 
@@ -79,6 +79,22 @@ setDate = (event, date) => {};
 
 <RNMonthPicker onChange={this.setDate} />;
 ```
+Events returned by onChange function:
+```js
+import { ACTION_DATE_SET, ACTION_DISMISSED } from 'react-native-month-year-picker';
+...
+onValueChange = (event, newDate) => {
+  switch(event) {
+    case ACTION_DATE_SET:
+      onSuccess(newDate);
+      break;
+    case ACTION_DISMISSED:
+    default:
+      onCancel(); //when ACTION_DISMISSED new date will be undefined
+  }
+}
+...
+```
 
 #### `value` (`required`)
 
@@ -112,7 +128,7 @@ Defines the output format in which the date will return. Defaults to `MM-YYYY`. 
 <RNMonthPicker outputFormat="M-YY" />
 ```
 
-#### `okButton` (`optional - Android only`)
+#### `okButton` (`optional`)
 
 Picker modal confirmation button text. Default `OK`.
 
@@ -120,7 +136,7 @@ Picker modal confirmation button text. Default `OK`.
 <RNMonthPicker okButton="Confirm" />
 ```
 
-#### `cancelButton` (`optional - Android only`)
+#### `cancelButton` (`optional`)
 
 Picker modal cancelation button text. Default `Cancel`.
 

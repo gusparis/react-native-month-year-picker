@@ -7,13 +7,7 @@
  */
 
 import React, { useState } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
 import MonthPicker from 'react-native-month-year-picker';
@@ -46,7 +40,7 @@ const App = () => {
   const onValueChange = (event, newDate) => {
     const selectedDate = newDate || date;
 
-    showPicker(Platform.OS === 'ios');
+    showPicker(false);
     setDate(selectedDate);
   };
 
