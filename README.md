@@ -144,6 +144,22 @@ Picker modal cancelation button text. Default `Cancel`.
 <RNMonthPicker cancelButton="Abort" />
 ```
 
+#### `okButtonStyle` (`iOS only`)
+
+Picker modal confirmation button text style.
+
+```js
+<RNMonthPicker okButtonStyle={{ color: 'blue', letterSpacing: 1.0 }} />
+```
+
+#### `cancelButtonStyle` (`iOS only`)
+
+Picker modal cancelation button text style.
+
+```js
+<RNMonthPicker cancelButtonStyle={{ color: 'red', letterSpacing: 0.25 }} />
+```
+
 ## Running example
 1. Install required pods in example/ios by running `npx pod-install`.
 2. Run `yarn start` to start Metro Bundler.
