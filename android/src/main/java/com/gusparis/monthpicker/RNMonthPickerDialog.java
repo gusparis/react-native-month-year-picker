@@ -14,15 +14,16 @@ import com.gusparis.monthpicker.utils.IRNConstants;
 import com.gusparis.monthpicker.utils.OnScrollListener;
 
 import java.text.DateFormatSymbols;
+import java.util.Objects;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 
 public class RNMonthPickerDialog extends DialogFragment {
-  private DatePickerDialog.OnDateSetListener listener;
+  private RNMPickerModule.DatePickerDialogListener listener;
   private RNMonthPickerAdapter adapter;
 
-  public void setListener(DatePickerDialog.OnDateSetListener listener) {
+  public void setListener(RNMPickerModule.DatePickerDialogListener listener) {
     this.listener = listener;
   }
 
@@ -30,12 +31,18 @@ public class RNMonthPickerDialog extends DialogFragment {
     this.adapter = adapter;
   }
 
+
+  @Override
+  public void onDismiss(DialogInterface dialog) {
+    listener.onDismiss(dialog);
+  }
+
   @Override
   @RequiresApi(api = Build.VERSION_CODES.O)
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     // Get the layout inflater
-    LayoutInflater inflater = getActivity().getLayoutInflater();
+    LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
 
     View dialog = inflater.inflate(R.layout.picker_list_view, null);
     final NumberPicker monthPicker = dialog.findViewById(R.id.month_picker);
@@ -74,6 +81,7 @@ public class RNMonthPickerDialog extends DialogFragment {
           }
         })
         .setNegativeButton(adapter.getCancelButton(), new DialogInterface.OnClickListener() {
+          @Override
           public void onClick(DialogInterface dialog, int id) {
             RNMonthPickerDialog.this.getDialog().cancel();
           }
