@@ -41,7 +41,7 @@ public class RNMPickerModule extends ReactContextBaseJavaModule {
     return REACT_CLASS;
   }
 
-  private class DatePickerDialogListener implements OnDateSetListener, OnDismissListener, OnClickListener {
+  class DatePickerDialogListener implements OnDateSetListener, OnDismissListener, OnClickListener {
 
     private final Promise mPromise;
     private boolean mPromiseResolved = false;
@@ -91,6 +91,7 @@ public class RNMPickerModule extends ReactContextBaseJavaModule {
     mp.setListener(new DatePickerDialogListener(promise));
     mp.setAdapter(adapter);
     FragmentActivity fragmentActivity = (FragmentActivity) getCurrentActivity();
+    assert fragmentActivity != null;
     mp.show(fragmentActivity.getSupportFragmentManager(), "RNMonthPicker");
   }
 }
