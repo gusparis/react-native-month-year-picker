@@ -6,6 +6,7 @@ import {
   Animated,
   Text,
   TouchableOpacity,
+  Appearance,
 } from 'react-native';
 import moment from 'moment';
 import invariant from 'invariant';
@@ -18,10 +19,17 @@ const NATIVE_FORMAT = 'M-YYYY';
 const DEFAULT_OUTPUT_FORMAT = 'MM-YYYY';
 const { Value, timing } = Animated;
 
+const DARK_MODE_COLOR = '#636366';
+const LIGHT_MODE_COLOR = '#f2f2f2';
+const LIGHT_MODE_OK_COLOR = '#007aff';
+const DARK_MODE_OK_COLOR = '#0a84ff';
+
+const isDarkMode = Appearance.getColorScheme() === 'dark';
+
 const styles = StyleSheet.create({
   container: {
     width,
-    backgroundColor: 'white',
+    backgroundColor: isDarkMode ? DARK_MODE_COLOR : LIGHT_MODE_COLOR,
     position: 'absolute',
     zIndex: 500,
     bottom: 0,
@@ -35,8 +43,16 @@ const styles = StyleSheet.create({
   },
   pickerContainer: { height: 200, minWidth: 315 },
   picker: { flex: 1 },
-  okStyle: { fontWeight: '500', color: '#2980b9', letterSpacing: 1.0 },
-  cancelStyle: { fontWeight: '400', color: '#2c3e50', letterSpacing: 0.25 },
+  okStyle: {
+    fontWeight: '500',
+    color: isDarkMode ? DARK_MODE_OK_COLOR : LIGHT_MODE_OK_COLOR,
+    letterSpacing: 1.0,
+  },
+  cancelStyle: {
+    fontWeight: '400',
+    color: isDarkMode ? LIGHT_MODE_COLOR : DARK_MODE_COLOR,
+    letterSpacing: 0.25,
+  },
 });
 
 class MonthPicker extends React.PureComponent {
