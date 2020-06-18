@@ -16,5 +16,6 @@
 @property (nonatomic, assign) NSDate* value;
 @property (nonatomic, assign) NSDate* minimumDate;
 @property (nonatomic, assign) NSDate* maximumDate;
+@property (nonatomic, assign) BOOL enableAutoDarkMode;
 
 @end
