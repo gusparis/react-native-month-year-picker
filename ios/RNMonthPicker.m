@@ -56,6 +56,14 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     }
 }
 
+- (void)setEnableAutoDarkMode:(BOOL) enableAutoDarkMode {
+    if (@available(iOS 13.0, *)) {
+        if (!enableAutoDarkMode) {
+            self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        }
+    }
+}
+
 - (void)setValue:(nonnull NSDate *)value {
     if (value != _value) {
         NSDateComponents *selectedDateComponents = [gregorian components:(NSCalendarUnitMonth|NSCalendarUnitYear) fromDate:value];

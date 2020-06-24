@@ -162,6 +162,14 @@ Picker modal cancelation button text style.
 <RNMonthPicker cancelButtonStyle={{ color: 'red', letterSpacing: 0.25 }} />
 ```
 
+#### `enableAutoDarkMode` (`iOS only`)
+
+Enables auto Dark Mode recognition. If set to `false` or iOS lower than v13.0, it will always display Light Mode. Default `true`. ***Android Dark Theme selector currently under construction.***
+
+```js
+<RNMonthPicker enableAutoDarkMode={false} />
+```
+
 ## Running example
 1. Install required pods in example/ios by running `npx pod-install`.
 2. Run `yarn start` to start Metro Bundler.

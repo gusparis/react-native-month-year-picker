@@ -2,7 +2,7 @@ import moment from 'moment';
 import invariant from 'invariant';
 
 import RNMonthPickerDialogModule from './RNMonthPickerDialogModule';
-import { ACTION_DATE_SET, ACTION_DISMISSED } from '.';
+import { ACTION_DATE_SET, ACTION_DISMISSED } from './utils';
 
 const NATIVE_FORMAT = 'YYYY-MM';
 const DEFAULT_OUTPUT_FORMAT = 'MM-YYYY';
