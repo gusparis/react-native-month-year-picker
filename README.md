@@ -162,9 +162,9 @@ Picker modal cancelation button text style.
 <RNMonthPicker cancelButtonStyle={{ color: 'red', letterSpacing: 0.25 }} />
 ```
 
-#### `enableAutoDarkMode` (`iOS only`)
+#### `enableAutoDarkMode`
 
-Enables auto Dark Mode recognition. If set to `false` or iOS lower than v13.0, it will always display Light Mode. Default `true`. ***Android Dark Theme selector currently under construction.***
+Enables auto Dark Mode recognition. If set to `false` for iOS < v13.0 and Android < 10, it will always display Light Mode. Default `true`.
 
 ```js
 <RNMonthPicker enableAutoDarkMode={false} />

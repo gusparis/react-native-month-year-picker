@@ -15,6 +15,7 @@ const MonthPicker = ({
   maximumDate,
   okButton = 'OK',
   cancelButton = 'Cancel',
+  enableAutoDarkMode = true,
 }) => {
   invariant(value, 'value prop is required!');
 
@@ -29,6 +30,7 @@ const MonthPicker = ({
     maximumDate: getLongFromDate(maximumDate),
     okButton,
     cancelButton,
+    enableAutoDarkMode,
   });
 
   picker.then(
