@@ -12,6 +12,9 @@
     "type": "git",
     "url": "https://github.com/gusparis/react-native-month-year-picker.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "keywords": [
     "react-native",
     "month-picker",
