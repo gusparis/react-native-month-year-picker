@@ -1,3 +1,11 @@
+## [1.3.1](https://github.com/gusparis/react-native-month-year-picker/compare/v1.3.0...v1.3.1) (2020-07-02)
+
+
+### Bug Fixes
+
+* **publish:** add npm username to publish config registry ([1cea435](https://github.com/gusparis/react-native-month-year-picker/commit/1cea435fc65276e1afcd6b239dd9079b8a72492d))
+* **readme:** Added new ui mode screenshots ([3dd25f4](https://github.com/gusparis/react-native-month-year-picker/commit/3dd25f4296033ad008f4d4c8a727e603b2b94015))
+
 # [1.2.0](https://github.com/gusparis/react-native-month-year-picker/compare/v1.1.3...v1.2.0) (2020-06-24)
 
 
