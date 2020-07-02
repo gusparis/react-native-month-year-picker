@@ -1,10 +1,12 @@
-.circleci
+.github
 example
 screenshots
 
 .eslintrc.js
 .prettierrc.js
 .releaserc
+package-lock.json
+yarn.lock
 
 # Xcode
 #

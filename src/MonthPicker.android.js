@@ -22,18 +22,14 @@ const MonthPicker = ({
   const getLongFromDate = (selectedValue) =>
     moment(selectedValue, outputFormat || DEFAULT_OUTPUT_FORMAT).valueOf();
 
-  let picker;
-
-  picker = RNMonthPickerDialogModule.open({
+  RNMonthPickerDialogModule.open({
     value: getLongFromDate(value),
     minimumDate: getLongFromDate(minimumDate),
     maximumDate: getLongFromDate(maximumDate),
     okButton,
     cancelButton,
     enableAutoDarkMode,
-  });
-
-  picker.then(
+  }).then(
     function resolve({ action, year, month }) {
       let date;
       switch (action) {

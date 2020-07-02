@@ -1,9 +1,10 @@
 # react-native-month-year-picker
-React Native month picker component for iOS and Android
+React Native month picker component for iOS and Android.
 
-| android | iOS |
-| --- | --- |
-| <img src="./screenshots/android.png" width="150">|<img src="./screenshots/ios.png" width="150">
+| UI Mode | Android | iOS |
+| --- | --- | --- |
+| <p align="center">***Light*** | <img align="center" src="./screenshots/android_light.png" width="120">|<img align="center" src="./screenshots/ios_light.png" width="120">
+| <p align="center">***Dark*** | <img align="center" src="./screenshots/android_dark.png" width="120">|<img align="center" src="./screenshots/ios_dark.png" width="120">
 
 ![react-native-month-year-picker](https://github.com/gusparis/react-native-month-year-picker/workflows/react-native-month-year-picker/badge.svg)
 
@@ -28,7 +29,7 @@ npx pod-install
 ```
 ## Usage
 ```javascript
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, SafeAreaView, Text } from 'react-native';
 import MonthPicker from 'react-native-month-year-picker';
 
@@ -36,18 +37,21 @@ const App = () => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
-  const showPicker = (value) => setShow(value);
+  const showPicker = useCallback((value) => setShow(value), []);
 
-  const onValueChange = (event, newDate) => {
-    const selectedDate = newDate || date;
+  const onValueChange = useCallback(
+    (event, newDate) => {
+      const selectedDate = newDate || date;
 
-    showPicker(false);
-    setDate(selectedDate);
-  };
+      showPicker(false);
+      setDate(selectedDate);
+    },
+    [date, showPicker],
+  );
 
   return (
     <SafeAreaView>
-      <Text>Month Picker Example</Text>
+      <Text>Month Year Picker Example</Text>
       <Text>{moment(date, "MM-YYYY")}</Text>
       <TouchableOpacity onPress={() => showPicker(true)}>
         <Text>OPEN</Text>
@@ -58,6 +62,7 @@ const App = () => {
           value={date}
           minimumDate={new Date()}
           maximumDate={new Date(2025, 5)}
+          enableAutoDarkMode={false}
         />
       )}
     </SafeAreaView>
@@ -164,7 +169,7 @@ Picker modal cancelation button text style.
 
 #### `enableAutoDarkMode`
 
-Enables auto Dark Mode recognition. If set to `false` for iOS < v13.0 and Android < 10, it will always display Light Mode. Default `true`.
+Enables auto Dark Mode recognition. If set to `false` or **iOS < v13.0** and **Android < 10**, it will display Light Mode. Default `true`.
 
 ```js
 <RNMonthPicker enableAutoDarkMode={false} />
