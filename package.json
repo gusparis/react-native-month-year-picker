@@ -13,7 +13,7 @@
     "url": "https://github.com/gusparis/react-native-month-year-picker.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/gparis"
   },
   "keywords": [
     "react-native",
