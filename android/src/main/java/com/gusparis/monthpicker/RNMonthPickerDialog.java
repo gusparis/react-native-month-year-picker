@@ -21,6 +21,7 @@ public class RNMonthPickerDialog extends DialogFragment {
   @Override
   public void onDismiss(DialogInterface dialog) {
     props.onChange();
+    super.dismiss();
   }
 
   @Override
