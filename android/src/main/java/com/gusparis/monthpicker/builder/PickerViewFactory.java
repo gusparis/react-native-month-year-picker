@@ -3,7 +3,6 @@ package com.gusparis.monthpicker.builder;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -11,9 +10,6 @@ import com.gusparis.monthpicker.R;
 import com.gusparis.monthpicker.RNMonthPickerDialog;
 import com.gusparis.monthpicker.adapter.RNMonthPickerProps;
 
-import java.util.Objects;
-
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 public class PickerViewFactory {
@@ -28,9 +24,11 @@ public class PickerViewFactory {
     this.rnMonthPickerDialog = rnMonthPickerDialog;
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.O)
   public AlertDialog build() {
-    FragmentActivity fragmentActivity = Objects.requireNonNull(rnMonthPickerDialog.getActivity());
+    if (rnMonthPickerDialog.getActivity() == null) {
+      throw new NullPointerException();
+    }
+    FragmentActivity fragmentActivity = rnMonthPickerDialog.getActivity();
     int uiMode = fragmentActivity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     int dialogStyle = R.style.LightStyle;
     int contentViewStyle = R.layout.picker_list_view;

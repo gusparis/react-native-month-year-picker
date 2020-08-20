@@ -1,13 +1,7 @@
 package com.gusparis.monthpicker.builder;
 
-import android.os.Build;
-
 import java.text.DateFormatSymbols;
-import java.util.Objects;
 
-import androidx.annotation.RequiresApi;
-
-@RequiresApi(api = Build.VERSION_CODES.O)
 class MonthNumberPicker extends MonthYearNumberPicker {
 
   private final String[] MONTHS = new DateFormatSymbols().getShortMonths();
@@ -24,7 +18,7 @@ class MonthNumberPicker extends MonthYearNumberPicker {
     monthPicker.setMaxValue(11);
     monthPicker.setDisplayedValues(MONTHS);
     monthPicker.setWrapSelectorWheel(false);
-    monthPicker.setValue(props.value().getMonthValue() - 1);
+    monthPicker.setValue(props.value().getMonth());
     return this;
   }
 
@@ -33,14 +27,14 @@ class MonthNumberPicker extends MonthYearNumberPicker {
     int month = monthPicker.getValue();
     int year = yearPicker.getValue();
     int value = month;
-    if (Objects.nonNull(props.minimumValue()) &&
+    if (props.minimumValue() != null &&
         year == props.minimumValue().getYear() &&
-        month < props.minimumValue().getMonthValue() - 1) {
-      value = props.minimumValue().getMonthValue() - 1;
-    } else if (Objects.nonNull(props.maximumValue()) &&
+        month < props.minimumValue().getMonth()) {
+      value = props.minimumValue().getMonth();
+    } else if (props.maximumValue() != null &&
         year == props.maximumValue().getYear() &&
-        month > props.maximumValue().getMonthValue() - 1) {
-      value = props.maximumValue().getMonthValue() - 1;
+        month > props.maximumValue().getMonth()) {
+      value = props.maximumValue().getMonth();
     }
     monthPicker.setValue(value);
   }

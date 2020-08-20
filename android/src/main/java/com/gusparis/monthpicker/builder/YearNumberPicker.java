@@ -1,12 +1,5 @@
 package com.gusparis.monthpicker.builder;
 
-import android.os.Build;
-
-import java.util.Objects;
-
-import androidx.annotation.RequiresApi;
-
-@RequiresApi(api = Build.VERSION_CODES.O)
 class YearNumberPicker extends MonthYearNumberPicker {
 
   private static final int DEFAULT_SIZE = 204;
@@ -30,9 +23,9 @@ class YearNumberPicker extends MonthYearNumberPicker {
   synchronized void setValue() {
     int year = yearPicker.getValue();
     int value = year;
-    if (Objects.nonNull(props.minimumValue()) && year < props.minimumValue().getYear()) {
+    if (props.minimumValue() != null && year < props.minimumValue().getYear()) {
       value = props.minimumValue().getYear();
-    } else if (Objects.nonNull(props.maximumValue()) && year > props.maximumValue().getYear()) {
+    } else if (props.maximumValue() != null && year > props.maximumValue().getYear()) {
       value = props.maximumValue().getYear();
     }
     yearPicker.setValue(value);
