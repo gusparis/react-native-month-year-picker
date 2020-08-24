@@ -1,18 +1,10 @@
 package com.gusparis.monthpicker.adapter;
 
-import android.os.Build;
-
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.TimeZone;
-
 import javax.annotation.Nullable;
-
-import androidx.annotation.RequiresApi;
 
 import static com.gusparis.monthpicker.adapter.RNProps.CANCEL_BUTTON;
 import static com.gusparis.monthpicker.adapter.RNProps.ENABLE_AUTO_DARK_MODE;
@@ -21,7 +13,6 @@ import static com.gusparis.monthpicker.adapter.RNProps.MINIMUM_VALUE;
 import static com.gusparis.monthpicker.adapter.RNProps.OK_BUTTON;
 import static com.gusparis.monthpicker.adapter.RNProps.VALUE;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
 public class RNPropsAdapter implements RNMonthPickerProps {
 
   private ReadableMap props;
@@ -35,17 +26,17 @@ public class RNPropsAdapter implements RNMonthPickerProps {
   }
 
   @Override
-  public LocalDate value() {
+  public DateProp value() {
     return getLocalDateValue(VALUE);
   }
 
   @Override
-  public LocalDate minimumValue() {
+  public DateProp minimumValue() {
     return getLocalDateValue(MINIMUM_VALUE);
   }
 
   @Override
-  public LocalDate maximumValue() {
+  public DateProp maximumValue() {
     return getLocalDateValue(MAXIMUM_VALUE);
   }
 
@@ -74,12 +65,9 @@ public class RNPropsAdapter implements RNMonthPickerProps {
     listener.onDismiss(null);
   }
 
-  private LocalDate getLocalDateValue(RNProps prop) {
+  private DateProp getLocalDateValue(RNProps prop) {
     return props.hasKey(prop.value()) ?
-        Instant.ofEpochMilli((long) props.getDouble(prop.value()))
-            .atZone(TimeZone.getDefault().toZoneId())
-            .toLocalDate() :
-        null;
+        new DateProp((long) props.getDouble(prop.value())) : null;
   }
 
   private String getStringValue(RNProps prop) {
