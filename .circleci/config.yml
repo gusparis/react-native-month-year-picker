@@ -1,0 +1,55 @@
+version: 2.1
+
+orbs:
+  rn: react-native-community/react-native@4.4.2
+
+jobs:
+  checkout_code:
+    executor:
+      name: rn/linux_js
+      node_version: '12.10.0'
+    steps:
+      - checkout
+      - persist_to_workspace:
+          paths: .
+          root: .
+  analyse_js:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: .
+      # - rn/yarn_install
+      # fails with Error untarring cache: Error extracting tarball /var/folders/bq/mjrgbpkx5h1g_b22fpv0tlzc0000gn/T/cache376822577 : tmp/yarn/: Cannot extract through symlink tmp/yarn tmp/yarn/v6/: Cannot extract through symlink tmp/yarn/v6 tmp/yarn/v6/.tmp/: Cannot extract through symlink tmp/yarn/v6/.tmp tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/: Cannot extract through symlink tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/node_modules/: Cannot extract through symlink tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/node_modules tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/node_modules/@babel/: Cannot extract through symlink tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/node_modules/@babel tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/node_modules/@babel/code-frame/: Cannot extract: exit status 1
+      - run:
+          command: yarn install --frozen-lockfile
+          name: yarn install
+      - run:
+          command: yarn lint
+          name: Run ESLint
+  publish:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: .
+      # - rn/yarn_install
+      # fails with Error untarring cache: Error extracting tarball /var/folders/bq/mjrgbpkx5h1g_b22fpv0tlzc0000gn/T/cache376822577 : tmp/yarn/: Cannot extract through symlink tmp/yarn tmp/yarn/v6/: Cannot extract through symlink tmp/yarn/v6 tmp/yarn/v6/.tmp/: Cannot extract through symlink tmp/yarn/v6/.tmp tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/: Cannot extract through symlink tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/node_modules/: Cannot extract through symlink tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/node_modules tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/node_modules/@babel/: Cannot extract through symlink tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/node_modules/@babel tmp/yarn/v6/npm-@babel-code-frame-7.8.3-33e25903d7481181534e12ec0a25f16b6fcf419e-integrity/node_modules/@babel/code-frame/: Cannot extract: exit status 1
+      - run:
+          command: yarn install --frozen-lockfile
+          name: yarn install
+      - run:
+          command: npx semantic-release
+          name: Publish to NPM
+
+workflows:
+  test:
+    jobs:
+      - checkout_code
+      - analyse_js:
+          requires:
+            - checkout_code
+      - publish:
+          requires:
+            - analyse_js
+          filters:
+            branches:
+              only: master
