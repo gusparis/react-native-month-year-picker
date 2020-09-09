@@ -43,7 +43,10 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 
 - (void)initMonths {
     months = [NSMutableArray array];
+    NSString * deviceLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    NSLocale * locale = [[NSLocale alloc] initWithLocaleIdentifier:deviceLanguage];
+    [df setLocale:locale];
     for(NSInteger i = 0; i < 12; i ++){
         [months addObject:[[df monthSymbols] objectAtIndex:(i)]];
     }
