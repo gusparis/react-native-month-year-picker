@@ -42,7 +42,7 @@ const MonthPicker = ({
         default:
           date = undefined;
       }
-      onChange(action, date);
+      onChange && onChange(action, date);
     },
     function reject(error) {
       throw error;

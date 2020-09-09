@@ -85,6 +85,7 @@ class MonthPicker extends React.PureComponent {
     this.slideOut(
       ({ finished }) =>
         finished &&
+        this.props.onChange &&
         this.props.onChange(ACTION_DATE_SET, this.state.currentDate),
     );
   };
@@ -92,7 +93,9 @@ class MonthPicker extends React.PureComponent {
   onCancel = () => {
     this.slideOut(
       ({ finished }) =>
-        finished && this.props.onChange(ACTION_DISMISSED, undefined),
+        finished &&
+        this.props.onChange &&
+        this.props.onChange(ACTION_DISMISSED, undefined),
     );
   };
 
