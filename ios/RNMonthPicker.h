@@ -17,5 +17,6 @@
 @property (nonatomic, assign) NSDate* minimumDate;
 @property (nonatomic, assign) NSDate* maximumDate;
 @property (nonatomic, assign) BOOL enableAutoDarkMode;
+@property (nonatomic, assign) NSString* useLocale;
 
 @end

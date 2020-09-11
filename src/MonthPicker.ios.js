@@ -33,7 +33,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingVertical: 10,
   },
-  pickerContainer: { height: 200, minWidth: 315 },
+  pickerContainer: {
+    height: 200,
+    width,
+  },
   picker: { flex: 1 },
   okStyle: {
     fontWeight: '500',
@@ -117,17 +120,23 @@ class MonthPicker extends React.PureComponent {
       okButtonStyle,
       cancelButtonStyle,
       enableAutoDarkMode = true,
+      useLocale = 'en',
     } = this.props;
     const { theme } = this.state;
     invariant(value, 'value prop is required!');
 
+    // return (
+    //   <Animated.View
+    //     style={{
+    //       ...styles.container,
+    //       ...theme.container,
+    //       height: this.state.slideAnim,
+    //     }}>
+
+    //   </Animated.View>
+    // );
     return (
-      <Animated.View
-        style={{
-          ...styles.container,
-          ...theme.container,
-          height: this.state.slideAnim,
-        }}>
+      <View style={{ position: 'absolute', bottom: 0 }}>
         <View style={styles.toolbarContainer}>
           <TouchableOpacity onPress={this.onCancel}>
             <Text
@@ -151,9 +160,10 @@ class MonthPicker extends React.PureComponent {
             minimumDate={this.getLongFromDate(minimumDate)}
             maximumDate={this.getLongFromDate(maximumDate)}
             enableAutoDarkMode={enableAutoDarkMode}
+            useLocale={useLocale}
           />
         </View>
-      </Animated.View>
+      </View>
     );
   }
 }

@@ -22,7 +22,7 @@ NSCalendar *gregorian;
 NSDateComponents *maxComponents;
 NSDateComponents *minComponents;
 
-NSMutableArray *months;
+NSArray *months;
 NSMutableArray *years;
 NSInteger selectedMonthRow;
 NSInteger selectedYearRow;
@@ -41,15 +41,17 @@ NSInteger selectedYearRow;
 
 RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 
-- (void)initMonths {
-    months = [NSMutableArray array];
-    NSString * deviceLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
+- (void)initMonths:(NSString *)useLocale {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    NSLocale * locale = [[NSLocale alloc] initWithLocaleIdentifier:deviceLanguage];
-    [df setLocale:locale];
-    for(NSInteger i = 0; i < 12; i ++){
-        [months addObject:[[df monthSymbols] objectAtIndex:(i)]];
+    NSString *language;
+    if (useLocale) {
+        language = useLocale;
+    } else {
+        language = [[NSLocale preferredLanguages] objectAtIndex:0];
     }
+    NSLocale * locale = [[NSLocale alloc] initWithLocaleIdentifier:language];
+    [df setLocale:locale];
+    months = [NSArray arrayWithArray:[df monthSymbols]];
 }
 
 - (void)initYears:(NSInteger)selectedYear {
@@ -59,7 +61,11 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     }
 }
 
-- (void)setEnableAutoDarkMode:(BOOL) enableAutoDarkMode {
+-(void)setUseLocale:(NSString *)useLocale {
+    [self initMonths:useLocale];
+}
+
+- (void)setEnableAutoDarkMode:(BOOL)enableAutoDarkMode {
     if (@available(iOS 13.0, *)) {
         if (!enableAutoDarkMode) {
             self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
@@ -71,9 +77,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     if (value != _value) {
         NSDateComponents *selectedDateComponents = [gregorian components:(NSCalendarUnitMonth|NSCalendarUnitYear) fromDate:value];
         if (!_value) {
-            [self initMonths];
             [self initYears: [selectedDateComponents year]];
-            
             selectedMonthRow = [selectedDateComponents month] - 1;
             selectedYearRow = DEFAULT_SIZE;
             [self setSelectedRows: NO];
