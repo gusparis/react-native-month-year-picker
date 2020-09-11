@@ -4,6 +4,8 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 
+import java.util.Locale;
+
 import javax.annotation.Nullable;
 
 import static com.gusparis.monthpicker.adapter.RNProps.CANCEL_BUTTON;
@@ -11,6 +13,7 @@ import static com.gusparis.monthpicker.adapter.RNProps.ENABLE_AUTO_DARK_MODE;
 import static com.gusparis.monthpicker.adapter.RNProps.MAXIMUM_VALUE;
 import static com.gusparis.monthpicker.adapter.RNProps.MINIMUM_VALUE;
 import static com.gusparis.monthpicker.adapter.RNProps.OK_BUTTON;
+import static com.gusparis.monthpicker.adapter.RNProps.USE_LOCALE;
 import static com.gusparis.monthpicker.adapter.RNProps.VALUE;
 
 public class RNPropsAdapter implements RNMonthPickerProps {
@@ -53,6 +56,15 @@ public class RNPropsAdapter implements RNMonthPickerProps {
   @Override
   public Boolean enableAutoDarkMode() {
     return getBooleanValue(ENABLE_AUTO_DARK_MODE);
+  }
+
+  @Override
+  public Locale useLocale() {
+    String locale = getStringValue(USE_LOCALE);
+    if (locale == null) {
+      return Locale.getDefault();
+    }
+    return new Locale(locale);
   }
 
   @Override

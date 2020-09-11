@@ -16,6 +16,7 @@ const MonthPicker = ({
   okButton = 'OK',
   cancelButton = 'Cancel',
   enableAutoDarkMode = true,
+  useLocale,
 }) => {
   invariant(value, 'value prop is required!');
 
@@ -29,6 +30,7 @@ const MonthPicker = ({
     okButton,
     cancelButton,
     enableAutoDarkMode,
+    useLocale,
   }).then(
     function resolve({ action, year, month }) {
       let date;

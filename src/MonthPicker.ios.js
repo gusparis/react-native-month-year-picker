@@ -120,23 +120,18 @@ class MonthPicker extends React.PureComponent {
       okButtonStyle,
       cancelButtonStyle,
       enableAutoDarkMode = true,
-      useLocale = 'en',
+      useLocale = null,
     } = this.props;
     const { theme } = this.state;
     invariant(value, 'value prop is required!');
 
-    // return (
-    //   <Animated.View
-    //     style={{
-    //       ...styles.container,
-    //       ...theme.container,
-    //       height: this.state.slideAnim,
-    //     }}>
-
-    //   </Animated.View>
-    // );
     return (
-      <View style={{ position: 'absolute', bottom: 0 }}>
+      <Animated.View
+        style={{
+          ...styles.container,
+          ...theme.container,
+          height: this.state.slideAnim,
+        }}>
         <View style={styles.toolbarContainer}>
           <TouchableOpacity onPress={this.onCancel}>
             <Text
@@ -163,7 +158,7 @@ class MonthPicker extends React.PureComponent {
             useLocale={useLocale}
           />
         </View>
-      </View>
+      </Animated.View>
     );
   }
 }
