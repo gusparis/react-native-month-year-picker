@@ -29,38 +29,40 @@ public class RNPropsAdapter implements RNMonthPickerProps {
   }
 
   @Override
-  public DateProp value() {
-    return getLocalDateValue(VALUE);
+  public RNDate value() {
+    return new RNDate(props, VALUE);
   }
 
   @Override
-  public DateProp minimumValue() {
-    return getLocalDateValue(MINIMUM_VALUE);
+  public RNDate minimumValue() {
+    return new RNDate(props, MINIMUM_VALUE);
   }
 
   @Override
-  public DateProp maximumValue() {
-    return getLocalDateValue(MAXIMUM_VALUE);
+  public RNDate maximumValue() {
+    return new RNDate(props, MAXIMUM_VALUE);
   }
 
   @Override
   public String okButton() {
-    return getStringValue(OK_BUTTON);
+    return getStringValue(OK_BUTTON, "OK");
   }
 
   @Override
   public String cancelButton() {
-    return getStringValue(CANCEL_BUTTON);
+    return getStringValue(CANCEL_BUTTON, "Cancel");
   }
 
   @Override
   public Boolean enableAutoDarkMode() {
-    return getBooleanValue(ENABLE_AUTO_DARK_MODE);
+    return props.hasKey(ENABLE_AUTO_DARK_MODE.value()) ?
+        props.getBoolean(ENABLE_AUTO_DARK_MODE.value()) :
+        Boolean.TRUE;
   }
 
   @Override
   public Locale useLocale() {
-    String locale = getStringValue(USE_LOCALE);
+    String locale = getStringValue(USE_LOCALE, null);
     if (locale == null) {
       return Locale.getDefault();
     }
@@ -77,16 +79,7 @@ public class RNPropsAdapter implements RNMonthPickerProps {
     listener.onDismiss(null);
   }
 
-  private DateProp getLocalDateValue(RNProps prop) {
-    return props.hasKey(prop.value()) ?
-        new DateProp((long) props.getDouble(prop.value())) : null;
-  }
-
-  private String getStringValue(RNProps prop) {
-    return props.hasKey(prop.value()) ? props.getString(prop.value()) : null;
-  }
-
-  private Boolean getBooleanValue(RNProps prop) {
-    return props.hasKey(prop.value()) ? props.getBoolean(prop.value()) : null;
+  private String getStringValue(RNProps prop, String defaultValue) {
+    return props.hasKey(prop.value()) ? props.getString(prop.value()) : defaultValue;
   }
 }

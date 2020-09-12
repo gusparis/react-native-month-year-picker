@@ -13,24 +13,15 @@ const MonthPicker = ({
   outputFormat,
   minimumDate,
   maximumDate,
-  okButton = 'OK',
-  cancelButton = 'Cancel',
-  enableAutoDarkMode = true,
-  useLocale,
+  ...restProps
 }) => {
   invariant(value, 'value prop is required!');
 
-  const getLongFromDate = (selectedValue) =>
-    moment(selectedValue, outputFormat || DEFAULT_OUTPUT_FORMAT).valueOf();
-
   RNMonthPickerDialogModule.open({
-    value: getLongFromDate(value),
-    minimumDate: getLongFromDate(minimumDate),
-    maximumDate: getLongFromDate(maximumDate),
-    okButton,
-    cancelButton,
-    enableAutoDarkMode,
-    useLocale,
+    value: value.getTime(),
+    minimumDate: minimumDate.getTime(),
+    maximumDate: maximumDate.getTime(),
+    ...restProps,
   }).then(
     function resolve({ action, year, month }) {
       let date;

@@ -4,11 +4,11 @@ import java.util.Locale;
 
 public interface RNMonthPickerProps {
 
-  DateProp value();
+  RNDate value();
 
-  DateProp minimumValue();
+  RNDate minimumValue();
 
-  DateProp maximumValue();
+  RNDate maximumValue();
 
   String okButton();
 

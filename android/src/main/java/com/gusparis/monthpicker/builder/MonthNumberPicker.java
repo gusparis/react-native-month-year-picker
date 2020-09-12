@@ -1,7 +1,6 @@
 package com.gusparis.monthpicker.builder;
 
 import java.text.DateFormatSymbols;
-import java.util.Locale;
 
 class MonthNumberPicker extends MonthYearNumberPicker {
 
