@@ -7,17 +7,23 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import moment from 'moment';
 
-import MonthPicker, { Locale } from 'react-native-month-year-picker';
+import MonthPicker from 'react-native-month-year-picker';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#dfe6e9',
+    backgroundColor: 'orange',
   },
   button: {
     justifyContent: 'center',
@@ -63,8 +69,7 @@ const App = () => {
           value={date}
           minimumDate={new Date()}
           maximumDate={new Date(2025, 5)}
-          enableAutoDarkMode={false}
-          useLocale={Locale.RUSSIAN}
+          locale="ru-RU"
         />
       )}
     </SafeAreaView>

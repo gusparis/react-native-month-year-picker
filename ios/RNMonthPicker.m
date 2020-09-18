@@ -41,7 +41,7 @@ NSInteger selectedYearRow;
 
 RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 
-- (void)initMonths:(NSString *)useLocale {
++ (void)initMonths:(NSString *)useLocale {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     NSString *language;
     if (useLocale) {
@@ -61,16 +61,8 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     }
 }
 
--(void)setUseLocale:(NSString *)useLocale {
-    [self initMonths:useLocale];
-}
-
-- (void)setEnableAutoDarkMode:(BOOL)enableAutoDarkMode {
-    if (@available(iOS 13.0, *)) {
-        if (!enableAutoDarkMode) {
-            self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        }
-    }
+-(void)setLocale:(NSString *)locale {
+    [self initMonths:locale];
 }
 
 - (void)setValue:(nonnull NSDate *)value {
@@ -159,8 +151,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 }
 
 - (void)pickerView:(__unused UIPickerView *)pickerView
-      didSelectRow:(NSInteger)row inComponent:(__unused NSInteger)component
-{
+      didSelectRow:(NSInteger)row inComponent:(__unused NSInteger)component {
     switch (component) {
         case 0:
             [self getSelectedMonthRow:row];

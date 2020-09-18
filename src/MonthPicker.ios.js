@@ -6,13 +6,12 @@ import {
   Animated,
   Text,
   TouchableOpacity,
-  NativeModules,
 } from 'react-native';
 import moment from 'moment';
 import invariant from 'invariant';
 
 import RNMonthPickerView from './RNMonthPickerNativeComponent';
-import { ACTION_DATE_SET, ACTION_DISMISSED, useTheme } from './utils';
+import { ACTION_DATE_SET, ACTION_DISMISSED } from './utils';
 
 const { width } = Dimensions.get('screen');
 const NATIVE_FORMAT = 'M-YYYY';
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   pickerContainer: {
-    height: 200,
+    height: 215,
     width,
   },
   picker: { flex: 1 },
@@ -50,24 +49,23 @@ const styles = StyleSheet.create({
 
 class MonthPicker extends React.PureComponent {
   state = {
-    slideAnim: new Value(0),
+    opacity: new Value(0),
     currentDate: this.props.value,
-    theme: {},
   };
 
   slideIn = () => {
-    timing(this.state.slideAnim, {
-      toValue: 250,
+    timing(this.state.opacity, {
+      toValue: 1,
       duration: 400,
-      useNativeDriver: false,
+      useNativeDriver: true,
     }).start();
   };
 
   slideOut = (callBack) => {
-    timing(this.state.slideAnim, {
+    timing(this.state.opacity, {
       toValue: 0,
       duration: 250,
-      useNativeDriver: false,
+      useNativeDriver: true,
     }).start(callBack);
   };
 
@@ -103,11 +101,7 @@ class MonthPicker extends React.PureComponent {
   };
 
   componentDidMount() {
-    const darkMode = NativeModules.RNDarkModeManager;
-    darkMode.isDarkMode((error, isDark) => {
-      const theme = this.props.enableAutoDarkMode ? isDark : !isDark;
-      this.setState({ theme: useTheme(theme) }, () => this.slideIn());
-    });
+    this.slideIn();
   }
 
   render() {
@@ -115,47 +109,46 @@ class MonthPicker extends React.PureComponent {
       value,
       minimumDate,
       maximumDate,
-      okButton = 'OK',
-      cancelButton = 'Cancel',
+      okButton,
+      cancelButton,
       okButtonStyle,
       cancelButtonStyle,
-      enableAutoDarkMode = true,
-      useLocale = null,
+      textColor = null,
+      backgroundColor = null,
+      locale = null,
     } = this.props;
-    const { theme } = this.state;
     invariant(value, 'value prop is required!');
 
     return (
       <Animated.View
         style={{
           ...styles.container,
-          ...theme.container,
-          height: this.state.slideAnim,
+          opacity: this.state.opacity,
+          transform: [
+            {
+              translateY: this.state.opacity.interpolate({
+                inputRange: [0, 1],
+                outputRange: [150, 0],
+              }),
+            },
+          ],
         }}>
-        <View style={styles.toolbarContainer}>
+        {/* <View style={styles.toolbarContainer}>
           <TouchableOpacity onPress={this.onCancel}>
-            <Text
-              style={
-                cancelButtonStyle || [styles.cancelStyle, theme.cancelButton]
-              }>
-              {cancelButton}
-            </Text>
+            <Text>{cancelButton || 'Cancel'}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.onConfirm}>
-            <Text style={okButtonStyle || [styles.okStyle, theme.okButton]}>
-              {okButton}
-            </Text>
+            <Text>{okButton || 'OK'}</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View style={styles.pickerContainer}>
           <RNMonthPickerView
+            {...{ textColor, backgroundColor, locale }}
             style={styles.picker}
             onChange={this.onValueChange}
             value={this.getLongFromDate(value)}
             minimumDate={this.getLongFromDate(minimumDate)}
             maximumDate={this.getLongFromDate(maximumDate)}
-            enableAutoDarkMode={enableAutoDarkMode}
-            useLocale={useLocale}
           />
         </View>
       </Animated.View>

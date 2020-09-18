@@ -23,7 +23,7 @@ const MonthPicker = ({
     maximumDate: maximumDate.getTime(),
     ...restProps,
   }).then(
-    function resolve({ action, year, month }) {
+    ({ action, year, month }) => {
       let date;
       switch (action) {
         case ACTION_DATE_SET:
@@ -37,7 +37,7 @@ const MonthPicker = ({
       }
       onChange && onChange(action, date);
     },
-    function reject(error) {
+    (error) => {
       throw error;
     },
   );

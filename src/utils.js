@@ -2,8 +2,6 @@ import { Platform } from 'react-native';
 
 export const ACTION_DATE_SET = 'dateSetAction';
 export const ACTION_DISMISSED = 'dismissedAction';
-// prettier-ignore
-export const Locale = {ENGLISH:'en',SPANISH:'es',FRENCH:'fr',RUSSIAN:'ru',GERMAN:'de',ITALIAN:'it',JAPANESE:'ja',KOREAN:'ko',CHINESE:'zh'};
 
 const theme = {
   ios: {
