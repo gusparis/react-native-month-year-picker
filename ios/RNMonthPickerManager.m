@@ -7,49 +7,32 @@
 //
 
 #import "RNMonthPickerManager.h"
-#import "RNMonthPicker.h"
+#import "RNMonthPicker+Toolbar.h"
 
 @implementation RNMonthPickerManager
 
 RCT_EXPORT_MODULE()
 
-- (UIView *)view
-{
-    return [RNMonthPicker new];
+- (UIView *)view {
+    return [RNMonthPickerToolbar new];
 }
 
+RCT_EXPORT_VIEW_PROPERTY(onCancel, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onDone, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)
+
 RCT_EXPORT_VIEW_PROPERTY(value, NSDate)
 RCT_EXPORT_VIEW_PROPERTY(minimumDate, NSDate)
 RCT_EXPORT_VIEW_PROPERTY(maximumDate, NSDate)
-RCT_EXPORT_VIEW_PROPERTY(locale, NSString)
 
-RCT_CUSTOM_VIEW_PROPERTY(textColor, UIColor, RNMonthPicker) {
+RCT_CUSTOM_VIEW_PROPERTY(locale, NSString, RNMonthPickerToolbar) {
+    NSString *defaultLocale;
     if(json) {
-        [view setValue:[RCTConvert UIColor:json] forKey:@"textColor"];
+        defaultLocale = [RCTConvert NSString:json];
     } else {
-        UIColor* defaultColor;
-        if (@available(iOS 13.0, *)) {
-            defaultColor = [UIColor labelColor];
-        } else {
-            defaultColor = [UIColor blackColor];
-        }
-        [view setValue:defaultColor forKey:@"textColor"];
+        defaultLocale = [[NSLocale preferredLanguages] objectAtIndex:0];
     }
-}
-
-RCT_CUSTOM_VIEW_PROPERTY(backgroundColor, UIColor, RNMonthPicker) {
-    if(json) {
-        [view setValue:[RCTConvert UIColor:json] forKey:@"backgroundColor"];
-    } else {
-        UIColor* defaultColor;
-        if (@available(iOS 13.0, *)) {
-            defaultColor = [UIColor tertiarySystemBackgroundColor];
-        } else {
-            defaultColor = [UIColor whiteColor];
-        }
-        [view setValue:defaultColor forKey:@"backgroundColor"];
-    }
+    [view initPicker:defaultLocale];
 }
 
 @end

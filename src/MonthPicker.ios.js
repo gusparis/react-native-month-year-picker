@@ -1,21 +1,12 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  Animated,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { View, StyleSheet, Dimensions, Animated } from 'react-native';
 import moment from 'moment';
 import invariant from 'invariant';
 
 import RNMonthPickerView from './RNMonthPickerNativeComponent';
-import { ACTION_DATE_SET, ACTION_DISMISSED } from './utils';
+import { ACTION_DATE_SET, ACTION_DISMISSED, NATIVE_FORMAT } from './constants';
 
 const { width } = Dimensions.get('screen');
-const NATIVE_FORMAT = 'M-YYYY';
-const DEFAULT_OUTPUT_FORMAT = 'MM-YYYY';
 const { Value, timing } = Animated;
 
 const styles = StyleSheet.create({
@@ -25,26 +16,11 @@ const styles = StyleSheet.create({
     zIndex: 500,
     bottom: 0,
   },
-  toolbarContainer: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-  },
   pickerContainer: {
-    height: 215,
+    height: 244,
     width,
   },
   picker: { flex: 1 },
-  okStyle: {
-    fontWeight: '500',
-    letterSpacing: 1.0,
-  },
-  cancelStyle: {
-    fontWeight: '400',
-    letterSpacing: 0.25,
-  },
 });
 
 class MonthPicker extends React.PureComponent {
@@ -69,16 +45,11 @@ class MonthPicker extends React.PureComponent {
     }).start(callBack);
   };
 
-  getLongFromDate = (selectedValue) =>
-    moment(
-      selectedValue,
-      this.props.outputFormat || DEFAULT_OUTPUT_FORMAT,
-    ).valueOf();
-
   onValueChange = (event) => {
-    const date = moment(event.nativeEvent.newDate, NATIVE_FORMAT).format(
-      this.props.outputFormat || DEFAULT_OUTPUT_FORMAT,
-    );
+    const {
+      nativeEvent: { newDate },
+    } = event;
+    const date = moment(newDate, NATIVE_FORMAT).toDate();
     this.setState({ currentDate: date });
   };
 
@@ -109,11 +80,6 @@ class MonthPicker extends React.PureComponent {
       value,
       minimumDate,
       maximumDate,
-      okButton,
-      cancelButton,
-      okButtonStyle,
-      cancelButtonStyle,
-      textColor = null,
       backgroundColor = null,
       locale = null,
     } = this.props;
@@ -133,22 +99,16 @@ class MonthPicker extends React.PureComponent {
             },
           ],
         }}>
-        {/* <View style={styles.toolbarContainer}>
-          <TouchableOpacity onPress={this.onCancel}>
-            <Text>{cancelButton || 'Cancel'}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.onConfirm}>
-            <Text>{okButton || 'OK'}</Text>
-          </TouchableOpacity>
-        </View> */}
         <View style={styles.pickerContainer}>
           <RNMonthPickerView
-            {...{ textColor, backgroundColor, locale }}
+            {...{ backgroundColor, locale }}
+            value={value.getTime()}
+            minimumDate={minimumDate.getTime()}
+            maximumDate={maximumDate.getTime()}
             style={styles.picker}
             onChange={this.onValueChange}
-            value={this.getLongFromDate(value)}
-            minimumDate={this.getLongFromDate(minimumDate)}
-            maximumDate={this.getLongFromDate(maximumDate)}
+            onCancel={this.onCancel}
+            onDone={this.onConfirm}
           />
         </View>
       </Animated.View>

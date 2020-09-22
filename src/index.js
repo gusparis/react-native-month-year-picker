@@ -1,4 +1,4 @@
 import MonthPicker from './MonthPicker';
-export * from './utils';
+export * from './constants';
 
 export default MonthPicker;

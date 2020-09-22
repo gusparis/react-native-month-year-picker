@@ -2,9 +2,8 @@ import moment from 'moment';
 import invariant from 'invariant';
 
 import RNMonthPickerDialogModule from './RNMonthPickerDialogModule';
-import { ACTION_DATE_SET, ACTION_DISMISSED } from './utils';
+import { ACTION_DATE_SET, ACTION_DISMISSED, NATIVE_FORMAT } from './constants';
 
-const NATIVE_FORMAT = 'YYYY-MM';
 const DEFAULT_OUTPUT_FORMAT = 'MM-YYYY';
 
 const MonthPicker = ({
