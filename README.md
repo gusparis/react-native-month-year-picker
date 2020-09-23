@@ -62,7 +62,7 @@ const App = () => {
           value={date}
           minimumDate={new Date()}
           maximumDate={new Date(2025, 5)}
-          enableAutoDarkMode={false}
+          locale="ko"
         />
       )}
     </SafeAreaView>
@@ -111,6 +111,14 @@ Defines the date value used in the component.
 <RNMonthPicker value={new Date()} />
 ```
 
+#### `locale` (`optional`)
+
+Defines the month list locale. If not sent, it defaults to device's language.
+
+```js
+<RNMonthPicker locale="ru" />
+```
+
 #### `maximumDate` (`optional`)
 
 Defines the maximum date that can be selected. Use year and month constructor.
@@ -127,17 +135,9 @@ Defines the minimum date that can be selected. Use year and month constructor.
 <RNMonthPicker minimumDate={new Date(2020, 5)} />
 ```
 
-#### `outputFormat` (`optional`)
-
-Defines the output format in which the date will return. Defaults to `MM-YYYY`. Refer to [moment.js docs](https://momentjs.com/docs/#/parsing/string-format/) for more information about formats.
-
-```js
-<RNMonthPicker outputFormat="M-YY" />
-```
-
 #### `okButton` (`optional`)
 
-Picker modal confirmation button text. Default `OK`.
+Picker modal confirmation button text. Default `Done`.
 
 ```js
 <RNMonthPicker okButton="Confirm" />
@@ -149,30 +149,6 @@ Picker modal cancelation button text. Default `Cancel`.
 
 ```js
 <RNMonthPicker cancelButton="Abort" />
-```
-
-#### `okButtonStyle` (`iOS only`)
-
-Picker modal confirmation button text style.
-
-```js
-<RNMonthPicker okButtonStyle={{ color: 'blue', letterSpacing: 1.0 }} />
-```
-
-#### `cancelButtonStyle` (`iOS only`)
-
-Picker modal cancelation button text style.
-
-```js
-<RNMonthPicker cancelButtonStyle={{ color: 'red', letterSpacing: 0.25 }} />
-```
-
-#### `enableAutoDarkMode`
-
-Enables auto Dark Mode recognition. If set to `false` or **iOS < v13.0** and **Android < 10**, it will display Light Mode. Default `true`.
-
-```js
-<RNMonthPicker enableAutoDarkMode={false} />
 ```
 
 ## Running example

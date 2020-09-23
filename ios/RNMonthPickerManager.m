@@ -24,6 +24,8 @@ RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(value, NSDate)
 RCT_EXPORT_VIEW_PROPERTY(minimumDate, NSDate)
 RCT_EXPORT_VIEW_PROPERTY(maximumDate, NSDate)
+RCT_REMAP_VIEW_PROPERTY(okButton, okButtonLabel, NSString)
+RCT_REMAP_VIEW_PROPERTY(cancelButton, cancelButtonLabel, NSString)
 
 RCT_CUSTOM_VIEW_PROPERTY(locale, NSString, RNMonthPickerToolbar) {
     NSString *defaultLocale;

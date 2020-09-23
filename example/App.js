@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'orange',
+    backgroundColor: '#dfe6e9',
   },
   button: {
     justifyContent: 'center',
@@ -54,7 +54,6 @@ const App = () => {
           value={date}
           minimumDate={new Date()}
           maximumDate={new Date(2025, 5)}
-          locale="es"
         />
       )}
     </SafeAreaView>

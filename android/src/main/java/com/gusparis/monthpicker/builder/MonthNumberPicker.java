@@ -12,7 +12,7 @@ class MonthNumberPicker extends MonthYearNumberPicker {
 
   @Override
   MonthNumberPicker build() {
-    String [] months = new DateFormatSymbols(props.useLocale())
+    String [] months = new DateFormatSymbols(props.locale())
         .getMonths();
     monthPicker.setMinValue(0);
     monthPicker.setMaxValue(11);

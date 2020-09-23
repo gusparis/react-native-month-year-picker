@@ -13,7 +13,7 @@ import static com.gusparis.monthpicker.adapter.RNProps.ENABLE_AUTO_DARK_MODE;
 import static com.gusparis.monthpicker.adapter.RNProps.MAXIMUM_VALUE;
 import static com.gusparis.monthpicker.adapter.RNProps.MINIMUM_VALUE;
 import static com.gusparis.monthpicker.adapter.RNProps.OK_BUTTON;
-import static com.gusparis.monthpicker.adapter.RNProps.USE_LOCALE;
+import static com.gusparis.monthpicker.adapter.RNProps.LOCALE;
 import static com.gusparis.monthpicker.adapter.RNProps.VALUE;
 
 public class RNPropsAdapter implements RNMonthPickerProps {
@@ -61,8 +61,8 @@ public class RNPropsAdapter implements RNMonthPickerProps {
   }
 
   @Override
-  public Locale useLocale() {
-    String locale = getStringValue(USE_LOCALE, null);
+  public Locale locale() {
+    String locale = getStringValue(LOCALE, null);
     if (locale == null) {
       return Locale.getDefault();
     }

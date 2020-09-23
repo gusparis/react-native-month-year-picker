@@ -16,7 +16,7 @@ public interface RNMonthPickerProps {
 
   Boolean enableAutoDarkMode();
 
-  Locale useLocale();
+  Locale locale();
 
   void onChange(int year, int month);
 

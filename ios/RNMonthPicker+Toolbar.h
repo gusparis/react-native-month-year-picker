@@ -16,6 +16,8 @@
 @property (nonatomic, assign) NSDate* value;
 @property (nonatomic, assign) NSDate* minimumDate;
 @property (nonatomic, assign) NSDate* maximumDate;
+@property (nonatomic, assign) NSString* okButtonLabel;
+@property (nonatomic, assign) NSString* cancelButtonLabel;
 
 - (void)initPicker:(NSString *)locale;
 

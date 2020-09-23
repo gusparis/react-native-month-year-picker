@@ -19,10 +19,9 @@ RNMonthPicker *picker;
     if ((self = [super initWithFrame:frame])) {
         toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(screen), 44)];
         cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelButton)];
-        doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDoneButton)];
+        doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onDoneButton)];
         UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         [toolbar setItems:[NSArray arrayWithObjects:cancelButton, flexibleSpace,doneButton,nil]];
-        
         picker = [RNMonthPicker new];
         picker.frame = CGRectMake(0, 44, CGRectGetWidth(screen), 200);
         UIColor* defaultColor;
@@ -32,7 +31,6 @@ RNMonthPicker *picker;
             defaultColor = [UIColor whiteColor];
         }
         [self setValue:defaultColor forKey:@"backgroundColor"];
-        
         [self addSubview:toolbar];
         [self addSubview:picker];
     }
@@ -65,6 +63,22 @@ RNMonthPicker *picker;
 
 - (void)initPicker:(NSString *)locale {
     [picker initMonths:locale];
+}
+
+- (void)setOkButtonLabel:(NSString *)okButtonLabel {
+    NSString *label = okButtonLabel;
+    if (!okButtonLabel) {
+        label = @"Done";
+    }
+    [doneButton setTitle:label];
+}
+
+- (void)setCancelButtonLabel:(NSString *)cancelButtonLabel {
+    NSString *label = cancelButtonLabel;
+    if (!cancelButtonLabel) {
+        label = @"Cancel";
+    }
+    [cancelButton setTitle:label];
 }
 
 @end

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, StyleSheet, Dimensions, Animated } from 'react-native';
 import moment from 'moment';
 import invariant from 'invariant';
@@ -23,97 +23,87 @@ const styles = StyleSheet.create({
   picker: { flex: 1 },
 });
 
-class MonthPicker extends React.PureComponent {
-  state = {
-    opacity: new Value(0),
-    currentDate: this.props.value,
-  };
+const MonthPicker = ({
+  value,
+  minimumDate,
+  maximumDate,
+  onChange: onConfirm,
+  locale = null,
+  ...restProps
+}) => {
+  invariant(value, 'value prop is required!');
 
-  slideIn = () => {
-    timing(this.state.opacity, {
+  const [opacity] = useState(new Value(0));
+  const [selectedDate, setSelectedDate] = useState(value);
+
+  useEffect(() => {
+    timing(opacity, {
       toValue: 1,
       duration: 300,
       useNativeDriver: true,
     }).start();
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  slideOut = (callBack) => {
-    timing(this.state.opacity, {
-      toValue: 0,
-      duration: 250,
-      useNativeDriver: true,
-    }).start(callBack);
-  };
+  const onChange = useCallback(
+    ({ nativeEvent: { newDate } }) =>
+      setSelectedDate(moment(newDate, NATIVE_FORMAT).toDate()),
+    [],
+  );
 
-  onValueChange = (event) => {
-    const {
-      nativeEvent: { newDate },
-    } = event;
-    const date = moment(newDate, NATIVE_FORMAT).toDate();
-    this.setState({ currentDate: date });
-  };
+  const slideOut = useCallback(
+    (callback) =>
+      timing(opacity, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }).start(callback),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
-  onConfirm = () => {
-    this.slideOut(
+  const onDone = useCallback(() => {
+    slideOut(
       ({ finished }) =>
-        finished &&
-        this.props.onChange &&
-        this.props.onChange(ACTION_DATE_SET, this.state.currentDate),
+        finished && onConfirm && onConfirm(ACTION_DATE_SET, selectedDate),
     );
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDate]);
 
-  onCancel = () => {
-    this.slideOut(
+  const onCancel = useCallback(() => {
+    slideOut(
       ({ finished }) =>
-        finished &&
-        this.props.onChange &&
-        this.props.onChange(ACTION_DISMISSED, undefined),
+        finished && onConfirm && onConfirm(ACTION_DISMISSED, undefined),
     );
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  componentDidMount() {
-    this.slideIn();
-  }
-
-  render() {
-    const {
-      value,
-      minimumDate,
-      maximumDate,
-      backgroundColor = null,
-      locale = null,
-    } = this.props;
-    invariant(value, 'value prop is required!');
-
-    return (
-      <Animated.View
-        style={{
-          ...styles.container,
-          opacity: this.state.opacity,
-          transform: [
-            {
-              translateY: this.state.opacity.interpolate({
-                inputRange: [0, 1],
-                outputRange: [150, 0],
-              }),
-            },
-          ],
-        }}>
-        <View style={styles.pickerContainer}>
-          <RNMonthPickerView
-            {...{ backgroundColor, locale }}
-            value={value.getTime()}
-            minimumDate={minimumDate.getTime()}
-            maximumDate={maximumDate.getTime()}
-            style={styles.picker}
-            onChange={this.onValueChange}
-            onCancel={this.onCancel}
-            onDone={this.onConfirm}
-          />
-        </View>
-      </Animated.View>
-    );
-  }
-}
+  return (
+    <Animated.View
+      style={{
+        ...styles.container,
+        opacity,
+        transform: [
+          {
+            translateY: opacity.interpolate({
+              inputRange: [0.4, 1],
+              outputRange: [150, 0],
+            }),
+          },
+        ],
+      }}>
+      <View style={styles.pickerContainer}>
+        <RNMonthPickerView
+          {...{ locale, onChange, onDone, onCancel }}
+          {...restProps}
+          style={styles.picker}
+          value={value.getTime()}
+          minimumDate={minimumDate.getTime()}
+          maximumDate={maximumDate.getTime()}
+        />
+      </View>
+    </Animated.View>
+  );
+};
 
 export default MonthPicker;
