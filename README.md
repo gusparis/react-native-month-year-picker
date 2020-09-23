@@ -152,6 +152,6 @@ Picker modal cancelation button text. Default `Cancel`.
 ```
 
 ## Running example
-1. Install required pods in example/ios by running `npx pod-install`.
+1. Install required pods by running `yarn pod:install`.
 2. Run `yarn start` to start Metro Bundler.
-3. Run `yarn ios` or `yarn android`.
+3. Run `yarn start:ios` or `yarn start:android`.
