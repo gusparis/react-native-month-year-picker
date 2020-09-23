@@ -1,4 +1,4 @@
 import MonthPicker from './MonthPicker';
-export { ACTION_DATE_SET, ACTION_DISMISSED } from './utils';
+export * from './constants';
 
 export default MonthPicker;

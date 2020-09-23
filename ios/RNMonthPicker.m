@@ -5,7 +5,6 @@
 //  Created by Gustavo Paris on 22/04/2020.
 //  Copyright © 2020 Facebook. All rights reserved.
 //
-
 #import "RNMonthPicker.h"
 
 #import <React/RCTConvert.h>
@@ -22,7 +21,7 @@ NSCalendar *gregorian;
 NSDateComponents *maxComponents;
 NSDateComponents *minComponents;
 
-NSMutableArray *months;
+NSArray *months;
 NSMutableArray *years;
 NSInteger selectedMonthRow;
 NSInteger selectedYearRow;
@@ -41,15 +40,14 @@ NSInteger selectedYearRow;
 
 RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 
-- (void)initMonths {
-    months = [NSMutableArray array];
-    NSString * deviceLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
+- (void)initMonths:(NSString *)useLocale {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    NSLocale * locale = [[NSLocale alloc] initWithLocaleIdentifier:deviceLanguage];
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:useLocale];
     [df setLocale:locale];
-    for(NSInteger i = 0; i < 12; i ++){
-        [months addObject:[[df monthSymbols] objectAtIndex:(i)]];
+    if (months) {
+        [self reloadComponent:0];
     }
+    months = [NSArray arrayWithArray:[df monthSymbols]];
 }
 
 - (void)initYears:(NSInteger)selectedYear {
@@ -59,34 +57,17 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     }
 }
 
-- (void)setEnableAutoDarkMode:(BOOL) enableAutoDarkMode {
-    if (@available(iOS 13.0, *)) {
-        if (!enableAutoDarkMode) {
-            self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        }
-    }
-}
-
 - (void)setValue:(nonnull NSDate *)value {
     if (value != _value) {
         NSDateComponents *selectedDateComponents = [gregorian components:(NSCalendarUnitMonth|NSCalendarUnitYear) fromDate:value];
         if (!_value) {
-            [self initMonths];
             [self initYears: [selectedDateComponents year]];
-            
             selectedMonthRow = [selectedDateComponents month] - 1;
             selectedYearRow = DEFAULT_SIZE;
             [self setSelectedRows: NO];
         }
         _value = value;
     }
-}
-
--(void)setSelectedRows:(BOOL)animated {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self selectRow:selectedMonthRow inComponent:0 animated:animated];
-        [self selectRow:selectedYearRow inComponent:1 animated:animated];
-    });
 }
 
 - (void)setMaximumDate:(NSDate *)maximumDate {
@@ -97,6 +78,13 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 - (void)setMinimumDate:(NSDate *)minimumDate {
     _minimumDate = minimumDate;
     minComponents = _minimumDate ? [gregorian components:NSCalendarUnitMonth | NSCalendarUnitYear fromDate:_minimumDate] : nil;
+}
+
+- (void)setSelectedRows:(BOOL)animated {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self selectRow:selectedMonthRow inComponent:0 animated:animated];
+        [self selectRow:selectedYearRow inComponent:1 animated:animated];
+    });
 }
 
 #pragma mark - UIPickerViewDataSource protocol
@@ -155,8 +143,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 }
 
 - (void)pickerView:(__unused UIPickerView *)pickerView
-      didSelectRow:(NSInteger)row inComponent:(__unused NSInteger)component
-{
+      didSelectRow:(NSInteger)row inComponent:(__unused NSInteger)component {
     switch (component) {
         case 0:
             [self getSelectedMonthRow:row];
@@ -171,7 +158,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     [self setSelectedRows: YES];
     if (_onChange) {
         _onChange(@{
-            @"newDate": [NSString stringWithFormat: @"%@-%@", [NSString stringWithFormat: @"%ld", selectedMonthRow + 1], [NSString stringWithFormat: @"%@", years[selectedYearRow]]]
+                @"newDate": [NSString stringWithFormat: @"%@-%@", [NSString stringWithFormat: @"%ld", selectedMonthRow + 1], [NSString stringWithFormat: @"%@", years[selectedYearRow]]]
         });
     }
 }

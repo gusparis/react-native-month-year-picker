@@ -99,3 +99,8 @@ RNTester/Pods/*
 # Visual studio
 .vscode
 .vs
+
+#example
+example/android/build
+example/android/app/build
+example/ios/Pods

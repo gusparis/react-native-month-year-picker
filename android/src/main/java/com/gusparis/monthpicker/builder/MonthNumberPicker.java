@@ -4,8 +4,6 @@ import java.text.DateFormatSymbols;
 
 class MonthNumberPicker extends MonthYearNumberPicker {
 
-  private final String[] MONTHS = new DateFormatSymbols().getShortMonths();
-
   @Override
   MonthNumberPicker onScrollListener(MonthYearScrollListener scrollListener) {
     monthPicker.setOnScrollListener(scrollListener);
@@ -14,9 +12,11 @@ class MonthNumberPicker extends MonthYearNumberPicker {
 
   @Override
   MonthNumberPicker build() {
+    String [] months = new DateFormatSymbols(props.locale())
+        .getMonths();
     monthPicker.setMinValue(0);
     monthPicker.setMaxValue(11);
-    monthPicker.setDisplayedValues(MONTHS);
+    monthPicker.setDisplayedValues(months);
     monthPicker.setWrapSelectorWheel(false);
     monthPicker.setValue(props.value().getMonth());
     return this;

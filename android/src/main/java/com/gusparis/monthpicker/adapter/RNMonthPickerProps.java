@@ -1,18 +1,22 @@
 package com.gusparis.monthpicker.adapter;
 
+import java.util.Locale;
+
 public interface RNMonthPickerProps {
 
-  DateProp value();
+  RNDate value();
 
-  DateProp minimumValue();
+  RNDate minimumValue();
 
-  DateProp maximumValue();
+  RNDate maximumValue();
 
   String okButton();
 
   String cancelButton();
 
   Boolean enableAutoDarkMode();
+
+  Locale locale();
 
   void onChange(int year, int month);
 
