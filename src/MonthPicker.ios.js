@@ -32,7 +32,7 @@ class MonthPicker extends React.PureComponent {
   slideIn = () => {
     timing(this.state.opacity, {
       toValue: 1,
-      duration: 400,
+      duration: 300,
       useNativeDriver: true,
     }).start();
   };
