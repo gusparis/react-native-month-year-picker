@@ -28,7 +28,7 @@ const MonthPicker = ({
   minimumDate,
   maximumDate,
   onChange: onConfirm,
-  locale = null,
+  locale = '',
   ...restProps
 }) => {
   invariant(value, 'value prop is required!');

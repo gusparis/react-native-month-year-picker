@@ -20,6 +20,6 @@ public class RNDate {
   }
 
   public int getMonth() {
-    return now.get(Calendar.MONTH) + 1;
+    return now.get(Calendar.MONTH);
   }
 }
