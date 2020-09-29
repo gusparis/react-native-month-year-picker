@@ -29,7 +29,7 @@ RCT_REMAP_VIEW_PROPERTY(cancelButton, cancelButtonLabel, NSString)
 
 RCT_CUSTOM_VIEW_PROPERTY(locale, NSString, RNMonthPickerToolbar) {
     NSString *defaultLocale;
-    if(json) {
+    if ([json length] != 0) {
         defaultLocale = [RCTConvert NSString:json];
     } else {
         defaultLocale = [[NSLocale preferredLanguages] objectAtIndex:0];
