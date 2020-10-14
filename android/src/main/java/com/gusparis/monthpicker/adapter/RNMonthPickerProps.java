@@ -14,8 +14,6 @@ public interface RNMonthPickerProps {
 
   String cancelButton();
 
-  Boolean enableAutoDarkMode();
-
   Locale locale();
 
   void onChange(int year, int month);
