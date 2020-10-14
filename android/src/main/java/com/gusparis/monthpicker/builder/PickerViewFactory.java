@@ -16,6 +16,9 @@ public class PickerViewFactory {
 
   private static final int DARK_VIEW = R.layout.picker_list_view_dark;
   private static final int LIGHT_VIEW = R.layout.picker_list_view;
+  private static final int DARK_STYLE = R.style.DarkStyle ;
+  private static final int LIGHT_STYLE = R.style.LightStyle;
+
   private RNMonthPickerProps props;
   private RNMonthPickerDialog rnMonthPickerDialog;
 
@@ -28,15 +31,12 @@ public class PickerViewFactory {
     if (rnMonthPickerDialog.getActivity() == null) {
       throw new NullPointerException();
     }
-    FragmentActivity fragmentActivity = rnMonthPickerDialog.getActivity();
-    int uiMode = fragmentActivity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-    int dialogStyle = R.style.LightStyle;
-    int contentViewStyle = R.layout.picker_list_view;
-
-    if (uiMode == Configuration.UI_MODE_NIGHT_YES && props.enableAutoDarkMode()) {
-      dialogStyle = R.style.DarkStyle;
-      contentViewStyle = R.layout.picker_list_view_dark;
-    }
+    final FragmentActivity fragmentActivity = rnMonthPickerDialog.getActivity();
+    final int uiMode = fragmentActivity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    final int dialogStyle = uiMode == Configuration.UI_MODE_NIGHT_YES
+        ? DARK_STYLE : LIGHT_STYLE;
+    final int contentViewStyle = uiMode == Configuration.UI_MODE_NIGHT_YES
+        ? DARK_VIEW : LIGHT_VIEW;
 
     AlertDialog.Builder builder = new AlertDialog.Builder(rnMonthPickerDialog.getActivity(), dialogStyle);
     LayoutInflater inflater = fragmentActivity.getLayoutInflater();
