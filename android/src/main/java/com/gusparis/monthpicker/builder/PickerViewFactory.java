@@ -65,6 +65,18 @@ public class PickerViewFactory {
             rnMonthPickerDialog.getDialog().cancel();
           }
         })
+        .setNeutralButton("Neutral", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialogInterface, int i) {
+            rnMonthPickerDialog.getDialog().cancel();
+          }
+        })
+        .setNeutralButton("Neutral 2", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialogInterface, int i) {
+            rnMonthPickerDialog.getDialog().cancel();
+          }
+        })
         .setNegativeButton(props.cancelButton(), new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int id) {

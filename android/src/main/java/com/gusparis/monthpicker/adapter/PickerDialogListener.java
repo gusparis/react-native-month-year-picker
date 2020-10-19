@@ -3,6 +3,7 @@ package com.gusparis.monthpicker.adapter;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
+import android.content.DialogInterface.OnClickListener;
 import android.widget.DatePicker;
 
 import com.facebook.react.bridge.Promise;
@@ -13,7 +14,7 @@ import com.facebook.react.bridge.WritableNativeMap;
 import static com.gusparis.monthpicker.adapter.RNActions.ACTION_DATE_SET;
 import static com.gusparis.monthpicker.adapter.RNActions.ACTION_DISMISSED;
 
-class PickerDialogListener implements OnDateSetListener, OnDismissListener {
+class PickerDialogListener implements OnDateSetListener, OnDismissListener, OnClickListener {
 
   private final Promise promise;
   private boolean promiseResolved = false;
@@ -44,5 +45,10 @@ class PickerDialogListener implements OnDateSetListener, OnDismissListener {
       promise.resolve(result);
       promiseResolved = true;
     }
+  }
+
+  @Override
+  public void onClick(DialogInterface dialogInterface, int i) {
+
   }
 }

@@ -19,9 +19,7 @@ RNMonthPicker *picker;
     if ((self = [super initWithFrame:frame])) {
         toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(screen), 44)];
         cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelButton)];
-        doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(onDoneButton)];
-        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        [toolbar setItems:[NSArray arrayWithObjects:cancelButton, flexibleSpace,doneButton,nil]];
+        doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(onDoneButton)];
         picker = [RNMonthPicker new];
         picker.frame = CGRectMake(0, 44, CGRectGetWidth(screen), 200);
         UIColor* defaultColor;
@@ -37,12 +35,26 @@ RNMonthPicker *picker;
     return self;
 }
 
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    if (_neutralButtonLabel) {
+        UIBarButtonItem *neutralButton = [[UIBarButtonItem alloc] initWithTitle:_neutralButtonLabel style:UIBarButtonItemStylePlain target:nil action:@selector(onNeutralButton)];
+        [toolbar setItems:[NSArray arrayWithObjects: cancelButton, neutralButton, flexibleSpace, doneButton, nil]];
+    } else {
+        [toolbar setItems:[NSArray arrayWithObjects: cancelButton, flexibleSpace, doneButton, nil]];
+    }
+}
+
 - (void)onCancelButton {
     _onCancel(@{});
 }
 
 - (void)onDoneButton {
     _onDone(@{});
+}
+
+- (void)onNeutralButton {
+    _onNeutral(@{});
 }
 
 - (void)setValue:(NSDate *)value {
@@ -66,19 +78,11 @@ RNMonthPicker *picker;
 }
 
 - (void)setOkButtonLabel:(NSString *)okButtonLabel {
-    NSString *label = okButtonLabel;
-    if (!okButtonLabel) {
-        label = @"Done";
-    }
-    [doneButton setTitle:label];
+    [doneButton setTitle:okButtonLabel];
 }
 
 - (void)setCancelButtonLabel:(NSString *)cancelButtonLabel {
-    NSString *label = cancelButtonLabel;
-    if (!cancelButtonLabel) {
-        label = @"Cancel";
-    }
-    [cancelButton setTitle:label];
+    [cancelButton setTitle:cancelButtonLabel];
 }
 
 @end
