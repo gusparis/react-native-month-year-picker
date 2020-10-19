@@ -11,6 +11,7 @@
 
 @property (nonatomic, copy) RCTBubblingEventBlock onCancel;
 @property (nonatomic, copy) RCTBubblingEventBlock onDone;
+@property (nonatomic, copy) RCTBubblingEventBlock onNeutral;
 @property (nonatomic, copy) RCTBubblingEventBlock onChange;
 
 @property (nonatomic, assign) NSDate* value;
@@ -18,6 +19,7 @@
 @property (nonatomic, assign) NSDate* maximumDate;
 @property (nonatomic, assign) NSString* okButtonLabel;
 @property (nonatomic, assign) NSString* cancelButtonLabel;
+@property (nonatomic, assign) NSString* neutralButtonLabel;
 
 - (void)initPicker:(NSString *)locale;
 

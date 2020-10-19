@@ -88,12 +88,15 @@ setDate = (event, date) => {};
 ```
 Events returned by onChange function:
 ```js
-import { ACTION_DATE_SET, ACTION_DISMISSED } from 'react-native-month-year-picker';
+import { ACTION_DATE_SET, ACTION_DISMISSED, ACTION_NEUTRAL } from 'react-native-month-year-picker';
 ...
 onValueChange = (event, newDate) => {
   switch(event) {
     case ACTION_DATE_SET:
       onSuccess(newDate);
+      break;
+    case ACTION_NEUTRAL:
+      onNeutral(newDate);
       break;
     case ACTION_DISMISSED:
     default:
@@ -149,6 +152,14 @@ Picker modal cancelation button text. Default `Cancel`.
 
 ```js
 <RNMonthPicker cancelButton="Abort" />
+```
+
+#### `neutralButton` (`optional`)
+
+Picker modal neutral button text. If not sent, button won't appear. Default `null`.
+
+```js
+<RNMonthPicker neutralButton="Delete" />
 ```
 
 ## Running example

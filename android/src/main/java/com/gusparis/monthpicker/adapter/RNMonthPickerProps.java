@@ -14,9 +14,11 @@ public interface RNMonthPickerProps {
 
   String cancelButton();
 
+  String neutralButton();
+
   Locale locale();
 
-  void onChange(int year, int month);
+  void onChange(int year, int month, int flag);
 
   void onChange();
 }

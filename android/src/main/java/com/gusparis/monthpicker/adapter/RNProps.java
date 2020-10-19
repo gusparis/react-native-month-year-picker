@@ -6,6 +6,7 @@ public enum RNProps {
   MINIMUM_VALUE("minimumDate"),
   OK_BUTTON("okButton"),
   CANCEL_BUTTON("cancelButton"),
+  NEUTRAL_BUTTON("neutralButton"),
   LOCALE("locale");
 
   private String value;

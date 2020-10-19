@@ -4,7 +4,12 @@ import moment from 'moment';
 import invariant from 'invariant';
 
 import RNMonthPickerView from './RNMonthPickerNativeComponent';
-import { ACTION_DATE_SET, ACTION_DISMISSED, NATIVE_FORMAT } from './constants';
+import {
+  ACTION_DATE_SET,
+  ACTION_DISMISSED,
+  ACTION_NEUTRAL,
+  NATIVE_FORMAT,
+} from './constants';
 
 const { width } = Dimensions.get('screen');
 const { Value, timing } = Animated;
@@ -27,9 +32,11 @@ const MonthPicker = ({
   value,
   minimumDate,
   maximumDate,
-  onChange: onConfirm,
+  onChange: onAction,
   locale = '',
-  ...restProps
+  okButton,
+  cancelButton,
+  neutralButton,
 }) => {
   invariant(value, 'value prop is required!');
 
@@ -65,7 +72,7 @@ const MonthPicker = ({
   const onDone = useCallback(() => {
     slideOut(
       ({ finished }) =>
-        finished && onConfirm && onConfirm(ACTION_DATE_SET, selectedDate),
+        finished && onAction && onAction(ACTION_DATE_SET, selectedDate),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDate]);
@@ -73,10 +80,18 @@ const MonthPicker = ({
   const onCancel = useCallback(() => {
     slideOut(
       ({ finished }) =>
-        finished && onConfirm && onConfirm(ACTION_DISMISSED, undefined),
+        finished && onAction && onAction(ACTION_DISMISSED, undefined),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onNeutral = useCallback(() => {
+    slideOut(
+      ({ finished }) =>
+        finished && onAction && onAction(ACTION_NEUTRAL, selectedDate),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDate]);
 
   return (
     <Animated.View
@@ -94,8 +109,16 @@ const MonthPicker = ({
       }}>
       <View style={styles.pickerContainer}>
         <RNMonthPickerView
-          {...{ locale, onChange, onDone, onCancel }}
-          {...restProps}
+          {...{
+            locale,
+            onChange,
+            onDone,
+            onCancel,
+            onNeutral,
+            okButton,
+            cancelButton,
+            neutralButton,
+          }}
           style={styles.picker}
           value={value.getTime()}
           minimumDate={minimumDate.getTime()}
