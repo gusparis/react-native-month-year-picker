@@ -9,12 +9,11 @@ import java.util.Locale;
 import javax.annotation.Nullable;
 
 import static com.gusparis.monthpicker.adapter.RNProps.CANCEL_BUTTON;
-import static com.gusparis.monthpicker.adapter.RNProps.ENABLE_AUTO_DARK_MODE;
+import static com.gusparis.monthpicker.adapter.RNProps.LOCALE;
 import static com.gusparis.monthpicker.adapter.RNProps.MAXIMUM_VALUE;
 import static com.gusparis.monthpicker.adapter.RNProps.MINIMUM_VALUE;
 import static com.gusparis.monthpicker.adapter.RNProps.NEUTRAL_BUTTON;
 import static com.gusparis.monthpicker.adapter.RNProps.OK_BUTTON;
-import static com.gusparis.monthpicker.adapter.RNProps.LOCALE;
 import static com.gusparis.monthpicker.adapter.RNProps.VALUE;
 
 public class RNPropsAdapter implements RNMonthPickerProps {
@@ -46,7 +45,7 @@ public class RNPropsAdapter implements RNMonthPickerProps {
 
   @Override
   public String okButton() {
-    return getStringValue(OK_BUTTON, "OK");
+    return getStringValue(OK_BUTTON, "Done");
   }
 
   @Override
@@ -57,13 +56,6 @@ public class RNPropsAdapter implements RNMonthPickerProps {
   @Override
   public String neutralButton() {
     return getStringValue(NEUTRAL_BUTTON, null);
-  }
-
-  @Override
-  public Boolean enableAutoDarkMode() {
-    return props.hasKey(ENABLE_AUTO_DARK_MODE.value()) ?
-        props.getBoolean(ENABLE_AUTO_DARK_MODE.value()) :
-        Boolean.TRUE;
   }
 
   @Override

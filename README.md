@@ -14,7 +14,7 @@ React Native month picker component for iOS and Android.
 
 or
 
-`$ yarn add @react-native-month-year-picker`
+`$ yarn add react-native-month-year-picker`
 
 ### For react-native@0.60.0 or above
 
