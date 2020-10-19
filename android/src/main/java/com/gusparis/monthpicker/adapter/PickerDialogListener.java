@@ -13,6 +13,7 @@ import com.facebook.react.bridge.WritableNativeMap;
 
 import static com.gusparis.monthpicker.adapter.RNActions.ACTION_DATE_SET;
 import static com.gusparis.monthpicker.adapter.RNActions.ACTION_DISMISSED;
+import static com.gusparis.monthpicker.adapter.RNActions.ACTION_NEUTRAL;
 
 class PickerDialogListener implements OnDateSetListener, OnDismissListener, OnClickListener {
 
@@ -26,10 +27,11 @@ class PickerDialogListener implements OnDateSetListener, OnDismissListener, OnCl
   }
 
   @Override
-  public void onDateSet(DatePicker view, int year, int month, int day) {
+  public void onDateSet(DatePicker view, int year, int month, int flag) {
     if (!promiseResolved && reactContext.hasActiveCatalystInstance()) {
       WritableMap result = new WritableNativeMap();
-      result.putString("action", ACTION_DATE_SET.value());
+      final RNActions action = flag == 0 ? ACTION_DATE_SET : ACTION_NEUTRAL;
+      result.putString("action", action.value());
       result.putInt("year", year);
       result.putInt("month", month + 1);
       promise.resolve(result);

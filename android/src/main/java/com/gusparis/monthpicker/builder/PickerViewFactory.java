@@ -61,19 +61,7 @@ public class PickerViewFactory {
         .setPositiveButton(props.okButton(), new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int id) {
-            props.onChange(yearPicker.getValue(), monthPicker.getValue());
-            rnMonthPickerDialog.getDialog().cancel();
-          }
-        })
-        .setNeutralButton("Neutral", new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialogInterface, int i) {
-            rnMonthPickerDialog.getDialog().cancel();
-          }
-        })
-        .setNeutralButton("Neutral 2", new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialogInterface, int i) {
+            props.onChange(yearPicker.getValue(), monthPicker.getValue(), 0);
             rnMonthPickerDialog.getDialog().cancel();
           }
         })
@@ -83,6 +71,17 @@ public class PickerViewFactory {
             rnMonthPickerDialog.getDialog().cancel();
           }
         });
+
+    if (props.neutralButton() != null) {
+      builder.setView(contentView)
+          .setNeutralButton(props.neutralButton(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+              props.onChange(yearPicker.getValue(), monthPicker.getValue(), 1);
+              rnMonthPickerDialog.getDialog().cancel();
+            }
+          });
+    }
 
     return builder.create();
   }

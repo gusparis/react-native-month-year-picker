@@ -12,6 +12,7 @@ import static com.gusparis.monthpicker.adapter.RNProps.CANCEL_BUTTON;
 import static com.gusparis.monthpicker.adapter.RNProps.ENABLE_AUTO_DARK_MODE;
 import static com.gusparis.monthpicker.adapter.RNProps.MAXIMUM_VALUE;
 import static com.gusparis.monthpicker.adapter.RNProps.MINIMUM_VALUE;
+import static com.gusparis.monthpicker.adapter.RNProps.NEUTRAL_BUTTON;
 import static com.gusparis.monthpicker.adapter.RNProps.OK_BUTTON;
 import static com.gusparis.monthpicker.adapter.RNProps.LOCALE;
 import static com.gusparis.monthpicker.adapter.RNProps.VALUE;
@@ -54,6 +55,11 @@ public class RNPropsAdapter implements RNMonthPickerProps {
   }
 
   @Override
+  public String neutralButton() {
+    return getStringValue(NEUTRAL_BUTTON, null);
+  }
+
+  @Override
   public Boolean enableAutoDarkMode() {
     return props.hasKey(ENABLE_AUTO_DARK_MODE.value()) ?
         props.getBoolean(ENABLE_AUTO_DARK_MODE.value()) :
@@ -70,8 +76,8 @@ public class RNPropsAdapter implements RNMonthPickerProps {
   }
 
   @Override
-  public void onChange(int year, int month) {
-    listener.onDateSet(null, year, month, 1);
+  public void onChange(int year, int month, int flag) {
+    listener.onDateSet(null, year, month, flag);
   }
 
   @Override
