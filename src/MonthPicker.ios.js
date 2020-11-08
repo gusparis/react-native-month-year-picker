@@ -9,6 +9,7 @@ import {
   ACTION_DISMISSED,
   ACTION_NEUTRAL,
   NATIVE_FORMAT,
+  DEFAULT_MODE,
 } from './constants';
 
 const { width } = Dimensions.get('screen');
@@ -34,6 +35,7 @@ const MonthPicker = ({
   maximumDate,
   onChange: onAction,
   locale = '',
+  mode = DEFAULT_MODE,
   okButton,
   cancelButton,
   neutralButton,
@@ -111,6 +113,7 @@ const MonthPicker = ({
         <RNMonthPickerView
           {...{
             locale,
+            mode,
             onChange,
             onDone,
             onCancel,

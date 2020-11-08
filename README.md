@@ -122,6 +122,21 @@ Defines the month list locale. If not sent, it defaults to device's language.
 <RNMonthPicker locale="ru" />
 ```
 
+#### `mode` (`optional`)
+
+Defines the month list display mode. It could be either `full`, `short`, `number` or `shortNumber`. Default `full`.
+
+| mode | display |
+| --- | --- |
+| **full** | *September* |
+| **short** | *Sep* |
+| **number** | *09* | 
+| **shortNumber** | *9* | 
+
+```js
+<RNMonthPicker mode="number" />
+```
+
 #### `maximumDate` (`optional`)
 
 Defines the maximum date that can be selected. Use year and month constructor.

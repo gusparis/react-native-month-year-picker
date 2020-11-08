@@ -18,10 +18,10 @@
 @implementation RNMonthPicker
 
 NSCalendar *gregorian;
+NSDateFormatter *df;
 NSDateComponents *maxComponents;
 NSDateComponents *minComponents;
 
-NSArray *months;
 NSMutableArray *years;
 NSInteger selectedMonthRow;
 NSInteger selectedYearRow;
@@ -31,6 +31,8 @@ NSInteger selectedYearRow;
     if ((self = [super initWithFrame:frame])) {
         self.delegate = self;
         gregorian = [NSCalendar currentCalendar];
+        df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"MMMM"];
         _value = nil;
         _minimumDate = nil;
         _maximumDate = nil;
@@ -40,14 +42,18 @@ NSInteger selectedYearRow;
 
 RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 
-- (void)initMonths:(NSString *)useLocale {
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:useLocale];
-    [df setLocale:locale];
-    if (months) {
-        [self reloadComponent:0];
+- (void)setLocale:(NSLocale *)useLocale {
+    [df setLocale:useLocale];
+}
+
+- (void)setMode:(NSString *)mode {
+    if ([mode isEqualToString:@"number"]) {
+        [df setDateFormat:@"MM"];
+    } else if ([mode isEqualToString:@"shortNumber"]) {
+        [df setDateFormat:@"M"];
+    } else if ([mode isEqualToString:@"short"]) {
+        [df setDateFormat:@"MMM"];
     }
-    months = [NSArray arrayWithArray:[df monthSymbols]];
 }
 
 - (void)initYears:(NSInteger)selectedYear {
@@ -97,7 +103,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 - (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     switch (component) {
         case 0:
-            return [months count];
+            return 12;
         case 1:
             return [years count];
             break;
@@ -110,8 +116,11 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 // row titles
 - (NSString *)pickerView:(nonnull UIPickerView *) pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     switch (component) {
-        case 0:
-            return [NSString stringWithFormat:@"%@", months[row]];
+        case 0: {
+            NSDateComponents *comps = [[NSDateComponents alloc] init];
+            [comps setMonth:row + 1];
+            return [NSString stringWithFormat:@"%@", [df stringFromDate:[gregorian dateFromComponents:comps]]];
+        }
         case 1:
             return [NSString stringWithFormat:@"%@", years[row]];
         default:
