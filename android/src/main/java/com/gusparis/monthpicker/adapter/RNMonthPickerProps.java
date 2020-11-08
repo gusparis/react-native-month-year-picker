@@ -18,6 +18,8 @@ public interface RNMonthPickerProps {
 
   Locale locale();
 
+  String mode();
+
   void onChange(int year, int month, int flag);
 
   void onChange();

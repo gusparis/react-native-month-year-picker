@@ -1,5 +1,7 @@
 package com.gusparis.monthpicker.builder;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormatSymbols;
 
 class MonthNumberPicker extends MonthYearNumberPicker {
@@ -12,13 +14,25 @@ class MonthNumberPicker extends MonthYearNumberPicker {
 
   @Override
   MonthNumberPicker build() {
-    String [] months = new DateFormatSymbols(props.locale())
-        .getMonths();
+    DateFormatSymbols dfs = new DateFormatSymbols(props.locale());
+
     monthPicker.setMinValue(0);
     monthPicker.setMaxValue(11);
-    monthPicker.setDisplayedValues(months);
+    monthPicker.setFormatter(MonthFormatter.getMonthFormatter(props.mode(), dfs));
     monthPicker.setWrapSelectorWheel(false);
     monthPicker.setValue(props.value().getMonth());
+    // Fix for Formatter blank initial rendering
+    try {
+      Method method = monthPicker.getClass().getDeclaredMethod("changeValueByOne", boolean.class);
+      method.setAccessible(true);
+      method.invoke(monthPicker, true);
+    } catch (NoSuchMethodException e) {
+      e.printStackTrace();
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    } catch (InvocationTargetException e) {
+      e.printStackTrace();
+    }
     return this;
   }
 
