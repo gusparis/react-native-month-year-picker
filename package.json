@@ -1,7 +1,7 @@
 {
   "name": "react-native-month-year-picker",
   "title": "React Native Month Picker",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "React Native Month Picker component for iOS & Android",
   "main": "src/index.js",
   "scripts": {
