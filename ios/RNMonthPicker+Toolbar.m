@@ -73,8 +73,12 @@ RNMonthPicker *picker;
     [picker setOnChange:onChange];
 }
 
-- (void)initPicker:(NSString *)locale {
-    [picker initMonths:locale];
+- (void)setLocale:(NSLocale *)locale {
+    [picker setLocale:locale];
+}
+
+- (void)setMode:(NSString *)mode {
+    [picker setMode:mode];
 }
 
 - (void)setOkButtonLabel:(NSString *)okButtonLabel {

@@ -16,6 +16,7 @@
 @property (nonatomic, assign) NSDate* minimumDate;
 @property (nonatomic, assign) NSDate* maximumDate;
 
-- (void)initMonths:(NSString *)useLocale;
+- (void)setLocale:(NSLocale *)useLocale;
+- (void)setMode:(NSString *)mode;
 
 @end

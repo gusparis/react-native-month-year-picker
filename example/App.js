@@ -54,7 +54,8 @@ const App = () => {
           value={date}
           minimumDate={new Date()}
           maximumDate={new Date(2025, 5)}
-          locale="ko"
+          locale="en"
+          mode="full"
         />
       )}
     </SafeAreaView>

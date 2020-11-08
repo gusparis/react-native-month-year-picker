@@ -7,7 +7,8 @@ public enum RNProps {
   OK_BUTTON("okButton"),
   CANCEL_BUTTON("cancelButton"),
   NEUTRAL_BUTTON("neutralButton"),
-  LOCALE("locale");
+  LOCALE("locale"),
+  MODE("mode");
 
   private String value;
 

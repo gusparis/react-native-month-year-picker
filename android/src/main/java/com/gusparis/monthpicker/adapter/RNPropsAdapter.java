@@ -12,6 +12,7 @@ import static com.gusparis.monthpicker.adapter.RNProps.CANCEL_BUTTON;
 import static com.gusparis.monthpicker.adapter.RNProps.LOCALE;
 import static com.gusparis.monthpicker.adapter.RNProps.MAXIMUM_VALUE;
 import static com.gusparis.monthpicker.adapter.RNProps.MINIMUM_VALUE;
+import static com.gusparis.monthpicker.adapter.RNProps.MODE;
 import static com.gusparis.monthpicker.adapter.RNProps.NEUTRAL_BUTTON;
 import static com.gusparis.monthpicker.adapter.RNProps.OK_BUTTON;
 import static com.gusparis.monthpicker.adapter.RNProps.VALUE;
@@ -65,6 +66,11 @@ public class RNPropsAdapter implements RNMonthPickerProps {
       return Locale.getDefault();
     }
     return new Locale(locale);
+  }
+
+  @Override
+  public String mode() {
+    return getStringValue(MODE, "full");
   }
 
   @Override
