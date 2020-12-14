@@ -20,8 +20,8 @@ const MonthPicker = ({
 
   RNMonthPickerDialogModule.open({
     value: value.getTime(),
-    minimumDate: minimumDate.getTime(),
-    maximumDate: maximumDate.getTime(),
+    minimumDate: minimumDate?.getTime() ?? null,
+    maximumDate: maximumDate?.getTime() ?? null,
     ...restProps,
   }).then(
     ({ action, year, month }) => {

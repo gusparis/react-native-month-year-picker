@@ -124,8 +124,8 @@ const MonthPicker = ({
           }}
           style={styles.picker}
           value={value.getTime()}
-          minimumDate={minimumDate.getTime()}
-          maximumDate={maximumDate.getTime()}
+          minimumDate={minimumDate?.getTime() ?? null}
+          maximumDate={maximumDate?.getTime() ?? null}
         />
       </View>
     </Animated.View>
