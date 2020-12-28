@@ -9,6 +9,7 @@ class MonthNumberPicker extends MonthYearNumberPicker {
   @Override
   MonthNumberPicker onScrollListener(MonthYearScrollListener scrollListener) {
     monthPicker.setOnScrollListener(scrollListener);
+    monthPicker.setOnValueChangedListener(scrollListener);
     return this;
   }
 
@@ -22,22 +23,15 @@ class MonthNumberPicker extends MonthYearNumberPicker {
     monthPicker.setWrapSelectorWheel(false);
     monthPicker.setValue(props.value().getMonth());
     // Fix for Formatter blank initial rendering
-    try {
-      Method method = monthPicker.getClass().getDeclaredMethod("changeValueByOne", boolean.class);
-      method.setAccessible(true);
-      method.invoke(monthPicker, true);
-    } catch (NoSuchMethodException e) {
-      e.printStackTrace();
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    } catch (InvocationTargetException e) {
-      e.printStackTrace();
-    }
+    monthPicker.incrementByOne(true);
     return this;
   }
 
   @Override
   synchronized void setValue() {
+    if (monthPicker.getCounter() > 0) {
+      return;
+    }
     int month = monthPicker.getValue();
     int year = yearPicker.getValue();
     int value = month;
@@ -50,7 +44,7 @@ class MonthNumberPicker extends MonthYearNumberPicker {
         month > props.maximumValue().getMonth()) {
       value = props.maximumValue().getMonth();
     }
-    monthPicker.setValue(value);
+    monthPicker.run(value - month);
   }
 
   @Override

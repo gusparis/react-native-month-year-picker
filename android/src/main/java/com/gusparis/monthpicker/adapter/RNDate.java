@@ -10,7 +10,7 @@ public class RNDate {
 
   RNDate(ReadableMap props, RNProps prop) {
     now = Calendar.getInstance();
-    if (props.hasKey(prop.value()) && !props.isNull(prop.value())) {
+    if (props.hasKey(prop.value())) {
       now.setTimeInMillis((long) props.getDouble(prop.value()));
     }
   }

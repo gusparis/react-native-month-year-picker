@@ -53,6 +53,7 @@ const App = () => {
           onChange={onValueChange}
           value={date}
           minimumDate={new Date()}
+          maximumDate={new Date(2022, 5)}
           locale="en"
           mode="full"
         />
