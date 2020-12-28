@@ -14,8 +14,8 @@ abstract class MonthYearNumberPicker implements Observer {
   private static final int MONTH_PICKER_ID = R.id.month_picker;
   private static final int YEAR_PICKER_ID = R.id.year_picker;
 
-  Picker monthPicker;
-  Picker yearPicker;
+  protected Picker monthPicker;
+  protected Picker yearPicker;
   RNMonthPickerProps props;
 
   MonthYearNumberPicker view(View view) {
@@ -27,6 +27,10 @@ abstract class MonthYearNumberPicker implements Observer {
   MonthYearNumberPicker props(RNMonthPickerProps props) {
     this.props = props;
     return this;
+  }
+
+  protected NumberPicker picker(Picker picker) {
+    return picker.getPicker();
   }
 
   @Override

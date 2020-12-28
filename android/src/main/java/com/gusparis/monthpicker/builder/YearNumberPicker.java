@@ -6,17 +6,17 @@ class YearNumberPicker extends MonthYearNumberPicker {
 
   @Override
   YearNumberPicker onScrollListener(MonthYearScrollListener scrollListener) {
-    yearPicker.setOnScrollListener(scrollListener);
-    yearPicker.setOnValueChangedListener(scrollListener);
+    picker(yearPicker).setOnScrollListener(scrollListener);
+    picker(yearPicker).setOnValueChangedListener(scrollListener);
     return this;
   }
 
   @Override
   YearNumberPicker build() {
     int year = props.value().getYear();
-    yearPicker.setMinValue(year - DEFAULT_SIZE);
-    yearPicker.setMaxValue(year + DEFAULT_SIZE);
-    yearPicker.setValue(year);
+    picker(yearPicker).setMinValue(year - DEFAULT_SIZE);
+    picker(yearPicker).setMaxValue(year + DEFAULT_SIZE);
+    picker(yearPicker).setValue(year);
     return this;
   }
 
@@ -25,7 +25,7 @@ class YearNumberPicker extends MonthYearNumberPicker {
     if (yearPicker.getCounter() > 0) {
       return;
     }
-    int year = yearPicker.getValue();
+    int year = picker(yearPicker).getValue();
     int value = year;
     if (props.minimumValue() != null && year < props.minimumValue().getYear()) {
       value = props.minimumValue().getYear();
@@ -37,6 +37,6 @@ class YearNumberPicker extends MonthYearNumberPicker {
 
   @Override
   int getValue() {
-    return yearPicker.getValue();
+    return picker(yearPicker).getValue();
   }
 }

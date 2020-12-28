@@ -8,8 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 class Picker {
-  private int counter = 0;
   private NumberPicker picker;
+  private int counter = 0;
   private int incrementValue;
   private boolean isIncrement;
 
@@ -25,40 +25,12 @@ class Picker {
     this.picker = (NumberPicker) view;
   }
 
-  public void setMinValue(int value) {
-    picker.setMinValue(value);
-  }
-
-  public void setMaxValue(int value) {
-    picker.setMaxValue(value);
-  }
-
-  public void setValue(int value) {
-    picker.setValue(value);
-  }
-
-  public void setFormatter(NumberPicker.Formatter formatter) {
-    picker.setFormatter(formatter);
-  }
-
-  public void setWrapSelectorWheel(boolean wrapSelectorWheel) {
-    picker.setWrapSelectorWheel(wrapSelectorWheel);
-  }
-
-  public int getValue() {
-    return picker.getValue();
-  }
-
-  public void setOnScrollListener(NumberPicker.OnScrollListener listener) {
-    picker.setOnScrollListener(listener);
-  }
-
-  public void setOnValueChangedListener(NumberPicker.OnValueChangeListener listener) {
-    picker.setOnValueChangedListener(listener);
-  }
-
   public int getCounter() {
     return this.counter;
+  }
+
+  public NumberPicker getPicker() {
+    return this.picker;
   }
 
   void run(int incrementValue) {
