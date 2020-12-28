@@ -1,7 +1,5 @@
 package com.gusparis.monthpicker;
 
-import android.os.Build;
-
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -14,7 +12,6 @@ import com.gusparis.monthpicker.adapter.RNPropsAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 @ReactModule(name = RNMPickerModule.REACT_CLASS)
@@ -36,7 +33,6 @@ public class RNMPickerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  @RequiresApi(api = Build.VERSION_CODES.O)
   public void open(@Nullable ReadableMap options, Promise promise) {
     FragmentActivity fragmentActivity = (FragmentActivity) getCurrentActivity();
     assert fragmentActivity != null;

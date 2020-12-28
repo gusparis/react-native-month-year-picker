@@ -14,19 +14,23 @@ abstract class MonthYearNumberPicker implements Observer {
   private static final int MONTH_PICKER_ID = R.id.month_picker;
   private static final int YEAR_PICKER_ID = R.id.year_picker;
 
-  NumberPicker monthPicker;
-  NumberPicker yearPicker;
+  protected Picker monthPicker;
+  protected Picker yearPicker;
   RNMonthPickerProps props;
 
   MonthYearNumberPicker view(View view) {
-    this.monthPicker = view.findViewById(MONTH_PICKER_ID);
-    this.yearPicker = view.findViewById(YEAR_PICKER_ID);
+    this.monthPicker = new Picker(view.findViewById(MONTH_PICKER_ID));
+    this.yearPicker = new Picker(view.findViewById(YEAR_PICKER_ID));
     return this;
   }
 
   MonthYearNumberPicker props(RNMonthPickerProps props) {
     this.props = props;
     return this;
+  }
+
+  protected NumberPicker picker(Picker picker) {
+    return picker.getPicker();
   }
 
   @Override

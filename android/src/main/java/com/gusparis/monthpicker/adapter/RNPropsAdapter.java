@@ -36,11 +36,17 @@ public class RNPropsAdapter implements RNMonthPickerProps {
 
   @Override
   public RNDate minimumValue() {
+    if (props.isNull(MINIMUM_VALUE.value())) {
+      return null;
+    }
     return new RNDate(props, MINIMUM_VALUE);
   }
 
   @Override
   public RNDate maximumValue() {
+    if (props.isNull(MAXIMUM_VALUE.value())) {
+      return null;
+    }
     return new RNDate(props, MAXIMUM_VALUE);
   }
 
