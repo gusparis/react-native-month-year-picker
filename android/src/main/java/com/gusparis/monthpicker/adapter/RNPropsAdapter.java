@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import javax.annotation.Nullable;
 
+import static com.gusparis.monthpicker.adapter.RNProps.AUTO_THEME;
 import static com.gusparis.monthpicker.adapter.RNProps.CANCEL_BUTTON;
 import static com.gusparis.monthpicker.adapter.RNProps.LOCALE;
 import static com.gusparis.monthpicker.adapter.RNProps.MAXIMUM_VALUE;
@@ -77,6 +78,11 @@ public class RNPropsAdapter implements RNMonthPickerProps {
   @Override
   public String mode() {
     return getStringValue(MODE, "full");
+  }
+
+  @Override
+  public Boolean autoTheme() {
+    return !props.hasKey(AUTO_THEME.value()) || props.getBoolean(AUTO_THEME.value());
   }
 
   @Override

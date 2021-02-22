@@ -1,13 +1,15 @@
 package com.gusparis.monthpicker.builder;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormatSymbols;
 
 class MonthNumberPicker extends MonthYearNumberPicker {
 
   @Override
   MonthNumberPicker onScrollListener(MonthYearScrollListener scrollListener) {
-    picker(monthPicker).setOnScrollListener(scrollListener);
-    picker(monthPicker).setOnValueChangedListener(scrollListener);
+    monthPicker.setOnScrollListener(scrollListener);
+    monthPicker.setOnValueChangedListener(scrollListener);
     return this;
   }
 
@@ -15,23 +17,28 @@ class MonthNumberPicker extends MonthYearNumberPicker {
   MonthNumberPicker build() {
     DateFormatSymbols dfs = new DateFormatSymbols(props.locale());
 
-    picker(monthPicker).setMinValue(0);
-    picker(monthPicker).setMaxValue(11);
-    picker(monthPicker).setFormatter(MonthFormatter.getMonthFormatter(props.mode(), dfs));
-    picker(monthPicker).setWrapSelectorWheel(false);
-    picker(monthPicker).setValue(props.value().getMonth());
+    monthPicker.setMinValue(0);
+    monthPicker.setMaxValue(11);
+    monthPicker.setFormatter(MonthFormatter.getMonthFormatter(props.mode(), dfs));
+    monthPicker.setWrapSelectorWheel(false);
+    monthPicker.setValue(props.value().getMonth());
     // Fix for Formatter blank initial rendering
-    monthPicker.incrementByOne(true);
+    try {
+      final Method method = monthPicker.getClass().getDeclaredMethod("changeValueByOne", boolean.class);
+      method.setAccessible(true);
+      method.invoke(monthPicker, true);
+
+    } catch (final NoSuchMethodException | InvocationTargetException |
+        IllegalAccessException | IllegalArgumentException e) {
+      e.printStackTrace();
+    }
     return this;
   }
 
   @Override
   synchronized void setValue() {
-    if (monthPicker.getCounter() > 0) {
-      return;
-    }
-    int month = picker(monthPicker).getValue();
-    int year = picker(yearPicker).getValue();
+    int month = monthPicker.getValue();
+    int year = yearPicker.getValue();
     int value = month;
     if (props.minimumValue() != null &&
         year == props.minimumValue().getYear() &&
@@ -42,11 +49,11 @@ class MonthNumberPicker extends MonthYearNumberPicker {
         month > props.maximumValue().getMonth()) {
       value = props.maximumValue().getMonth();
     }
-    monthPicker.run(value - month);
+    monthPicker.setValue(value);
   }
 
   @Override
   int getValue() {
-    return picker(monthPicker).getValue();
+    return monthPicker.getValue();
   }
 }

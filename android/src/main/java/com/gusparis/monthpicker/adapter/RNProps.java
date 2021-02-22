@@ -8,7 +8,8 @@ public enum RNProps {
   CANCEL_BUTTON("cancelButton"),
   NEUTRAL_BUTTON("neutralButton"),
   LOCALE("locale"),
-  MODE("mode");
+  MODE("mode"),
+  AUTO_THEME("autoTheme");
 
   private String value;
 

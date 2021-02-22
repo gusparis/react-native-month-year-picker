@@ -136,6 +136,13 @@ Defines the month list display mode. It could be either `full`, `short`, `number
 ```js
 <RNMonthPicker mode="number" />
 ```
+#### `autoTheme` (`optional`)
+
+Enables phone's UI Mode color recognition; for Android 10+ and iOS 13+. Lower OS versions will always be Light Mode. Default `true`.
+
+```js
+<RNMonthPicker autoTheme={false} />
+```
 
 #### `maximumDate` (`optional`)
 

@@ -57,6 +57,15 @@ RNMonthPicker *picker;
     _onNeutral(@{});
 }
 
+- (void)setAutoTheme:(BOOL)enableAutoTheme {
+    if (@available(iOS 13.0, *)) {
+        if (!enableAutoTheme) {
+            self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        }
+    }
+}
+
+
 - (void)setValue:(NSDate *)value {
     [picker setValue:value];
 }

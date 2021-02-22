@@ -20,6 +20,8 @@ public interface RNMonthPickerProps {
 
   String mode();
 
+  Boolean autoTheme();
+
   void onChange(int year, int month, int flag);
 
   void onChange();
