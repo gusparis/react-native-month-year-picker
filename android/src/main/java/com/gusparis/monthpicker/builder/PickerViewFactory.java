@@ -33,9 +33,9 @@ public class PickerViewFactory {
     }
     final FragmentActivity fragmentActivity = rnMonthPickerDialog.getActivity();
     final int uiMode = fragmentActivity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-    final int dialogStyle = uiMode == Configuration.UI_MODE_NIGHT_YES
+    final int dialogStyle = uiMode == Configuration.UI_MODE_NIGHT_YES && props.autoTheme()
         ? DARK_STYLE : LIGHT_STYLE;
-    final int contentViewStyle = uiMode == Configuration.UI_MODE_NIGHT_YES
+    final int contentViewStyle = uiMode == Configuration.UI_MODE_NIGHT_YES && props.autoTheme()
         ? DARK_VIEW : LIGHT_VIEW;
 
     AlertDialog.Builder builder = new AlertDialog.Builder(rnMonthPickerDialog.getActivity(), dialogStyle);

@@ -39,6 +39,7 @@ const MonthPicker = ({
   okButton,
   cancelButton,
   neutralButton,
+  autoTheme = true,
 }) => {
   invariant(value, 'value prop is required!');
 
@@ -121,6 +122,7 @@ const MonthPicker = ({
             okButton,
             cancelButton,
             neutralButton,
+            autoTheme,
           }}
           style={styles.picker}
           value={value.getTime()}
