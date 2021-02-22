@@ -56,6 +56,7 @@ const App = () => {
           maximumDate={new Date(2022, 5)}
           locale="en"
           mode="full"
+          autoTheme={false}
         />
       )}
     </SafeAreaView>
