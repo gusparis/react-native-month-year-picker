@@ -62,7 +62,7 @@ const MonthPicker = ({
   );
 
   const slideOut = useCallback(
-    (callback) =>
+    callback =>
       timing(opacity, {
         toValue: 0,
         duration: 250,

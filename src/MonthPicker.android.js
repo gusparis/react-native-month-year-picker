@@ -37,7 +37,7 @@ const MonthPicker = ({
       }
       onChange && onChange(action, date);
     },
-    (error) => {
+    error => {
       throw error;
     },
   );
