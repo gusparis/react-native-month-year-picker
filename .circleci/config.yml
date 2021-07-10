@@ -7,14 +7,16 @@ jobs:
   checkout_code:
     executor:
       name: rn/linux_js
-      node_version: '12.10.0'
+      node_version: "12.10.0"
     steps:
       - checkout
       - persist_to_workspace:
           paths: .
           root: .
   analyse_js:
-    executor: rn/linux_js
+    executor:
+      name: rn/linux_js
+      node_version: "12.10.0"
     steps:
       - attach_workspace:
           at: .
@@ -27,7 +29,9 @@ jobs:
           command: yarn lint
           name: Run ESLint
   publish:
-    executor: rn/linux_js
+    executor:
+      name: rn/linux_js
+      node_version: "12.10.0"
     steps:
       - attach_workspace:
           at: .
