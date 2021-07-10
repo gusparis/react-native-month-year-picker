@@ -47,13 +47,22 @@ jobs:
 workflows:
   test:
     jobs:
-      - checkout_code
+      - checkout_code:
+          filters:
+            branches:
+              ignore: master
+      - analyse_js:
+          requires:
+            - checkout_code
+  publish:
+    jobs:
+      - checkout_code:
+          filters:
+            branches:
+              only: master
       - analyse_js:
           requires:
             - checkout_code
       - publish:
           requires:
             - analyse_js
-          filters:
-            branches:
-              only: master
