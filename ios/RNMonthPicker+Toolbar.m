@@ -38,7 +38,7 @@ RNMonthPicker *picker;
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     if (_neutralButtonLabel) {
-        UIBarButtonItem *neutralButton = [[UIBarButtonItem alloc] initWithTitle:_neutralButtonLabel style:UIBarButtonItemStylePlain target:nil action:@selector(onNeutralButton)];
+        UIBarButtonItem *neutralButton = [[UIBarButtonItem alloc] initWithTitle:_neutralButtonLabel style:UIBarButtonItemStylePlain target:self action:@selector(onNeutralButton)];
         [toolbar setItems:[NSArray arrayWithObjects: cancelButton, neutralButton, flexibleSpace, doneButton, nil]];
     } else {
         [toolbar setItems:[NSArray arrayWithObjects: cancelButton, flexibleSpace, doneButton, nil]];
