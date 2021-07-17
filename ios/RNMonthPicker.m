@@ -10,7 +10,8 @@
 #import <React/RCTConvert.h>
 #import <React/RCTUtils.h>
 
-#define DEFAULT_SIZE 408
+#define DEFAULT_YEAR_SIZE 408
+#define DEFAULT_MONTH_SIZE 12000
 
 @interface RNMonthPicker() <UIPickerViewDataSource, UIPickerViewDelegate>
 @end
@@ -58,7 +59,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 
 - (void)initYears:(NSInteger)selectedYear {
     years = [NSMutableArray array];
-    for(NSInteger i = selectedYear - DEFAULT_SIZE; i <= selectedYear + DEFAULT_SIZE; i ++) {
+    for(NSInteger i = selectedYear - DEFAULT_YEAR_SIZE; i <= selectedYear + DEFAULT_YEAR_SIZE; i ++) {
         [years addObject: [NSNumber numberWithLong:i]];
     }
 }
@@ -68,8 +69,8 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
         NSDateComponents *selectedDateComponents = [gregorian components:(NSCalendarUnitMonth|NSCalendarUnitYear) fromDate:value];
         if (!_value) {
             [self initYears: [selectedDateComponents year]];
-            selectedMonthRow = [selectedDateComponents month] - 1;
-            selectedYearRow = DEFAULT_SIZE;
+            selectedMonthRow = (DEFAULT_MONTH_SIZE / 2) + [selectedDateComponents month];
+            selectedYearRow = DEFAULT_YEAR_SIZE;
             [self setSelectedRows: NO];
         }
         _value = value;
@@ -103,9 +104,9 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 - (NSInteger)pickerView:(nonnull UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     switch (component) {
         case 0:
-            return 12;
+            return DEFAULT_MONTH_SIZE;
         case 1:
-            return [years count];
+            return (DEFAULT_YEAR_SIZE * 2) + 1;
             break;
         default:
             return 0;
@@ -118,7 +119,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     switch (component) {
         case 0: {
             NSDateComponents *comps = [[NSDateComponents alloc] init];
-            [comps setMonth:row + 1];
+            [comps setMonth: row % 12];
             return [NSString stringWithFormat:@"%@", [df stringFromDate:[gregorian dateFromComponents:comps]]];
         }
         case 1:
@@ -129,12 +130,12 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 }
 
 - (void)getSelectedMonthRow:(NSInteger)row {
-    NSInteger month = row  + 1;
+    NSInteger month = row % 12 != 0 ? row % 12 : 12;
     NSInteger year = [years[selectedYearRow] longValue];
     if (minComponents && year == [minComponents year] && month < [minComponents month]) {
-        selectedMonthRow = [minComponents month] - 1;
+        selectedMonthRow = row + [minComponents month] - month;
     } else if (maxComponents && year == [maxComponents year] && month > [maxComponents month]) {
-        selectedMonthRow = [maxComponents month] - 1;
+        selectedMonthRow = row + [maxComponents month] - month;
     } else {
         selectedMonthRow = row;
     }
@@ -167,7 +168,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     [self setSelectedRows: YES];
     if (_onChange) {
         _onChange(@{
-                @"newDate": [NSString stringWithFormat: @"%@-%@", [NSString stringWithFormat: @"%ld", selectedMonthRow + 1], [NSString stringWithFormat: @"%@", years[selectedYearRow]]]
+                @"newDate": [NSString stringWithFormat: @"%@-%@", [NSString stringWithFormat: @"%ld", selectedMonthRow % 12 != 0 ? selectedMonthRow % 12 : 12], [NSString stringWithFormat: @"%@", years[selectedYearRow]]]
         });
     }
 }
