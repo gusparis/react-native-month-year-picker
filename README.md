@@ -187,4 +187,4 @@ Picker modal neutral button text. If not sent, button won't appear. Default `nul
 ## Running example
 1. Install required pods by running `yarn pod:install`.
 2. Run `yarn start` to start Metro Bundler.
-3. Run `yarn start:ios` or `yarn start:android`.
+3. Run `yarn run:ios` or `yarn run:android`.

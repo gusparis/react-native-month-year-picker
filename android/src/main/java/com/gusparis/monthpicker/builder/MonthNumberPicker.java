@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.text.DateFormatSymbols;
 
 class MonthNumberPicker extends MonthYearNumberPicker {
+  private static final Integer DEFAULT_MONTH_SIZE = 3000;
 
   @Override
   MonthNumberPicker onScrollListener(MonthYearScrollListener scrollListener) {
@@ -15,13 +16,13 @@ class MonthNumberPicker extends MonthYearNumberPicker {
 
   @Override
   MonthNumberPicker build() {
-    DateFormatSymbols dfs = new DateFormatSymbols(props.locale());
+    final DateFormatSymbols dfs = new DateFormatSymbols(props.locale());
 
     monthPicker.setMinValue(0);
-    monthPicker.setMaxValue(11);
+    monthPicker.setMaxValue(DEFAULT_MONTH_SIZE);
     monthPicker.setFormatter(MonthFormatter.getMonthFormatter(props.mode(), dfs));
     monthPicker.setWrapSelectorWheel(false);
-    monthPicker.setValue(props.value().getMonth());
+    monthPicker.setValue((DEFAULT_MONTH_SIZE / 2) + props.value().getMonth());
     // Fix for Formatter blank initial rendering
     try {
       final Method method = monthPicker.getClass().getDeclaredMethod("changeValueByOne", boolean.class);
@@ -37,17 +38,18 @@ class MonthNumberPicker extends MonthYearNumberPicker {
 
   @Override
   synchronized void setValue() {
-    int month = monthPicker.getValue();
-    int year = yearPicker.getValue();
-    int value = month;
+    final int row = monthPicker.getValue();
+    final int month = (row % 12);
+    final int year = yearPicker.getValue();
+    int value = row;
     if (props.minimumValue() != null &&
         year == props.minimumValue().getYear() &&
         month < props.minimumValue().getMonth()) {
-      value = props.minimumValue().getMonth();
+      value = row + props.minimumValue().getMonth() - month;
     } else if (props.maximumValue() != null &&
         year == props.maximumValue().getYear() &&
         month > props.maximumValue().getMonth()) {
-      value = props.maximumValue().getMonth();
+      value = row + props.maximumValue().getMonth() - month;
     }
     monthPicker.setValue(value);
   }

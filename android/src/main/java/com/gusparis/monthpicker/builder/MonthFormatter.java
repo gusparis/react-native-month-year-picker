@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.widget.NumberPicker;
 
 import java.text.DateFormatSymbols;
+import java.util.Arrays;
 
 public class MonthFormatter {
 
@@ -24,12 +25,18 @@ public class MonthFormatter {
     private String [] months;
 
     public FullMonth(DateFormatSymbols dfs) {
+//      String [] newMonths = new String[3000];
+//      String [] monthNames = dfs.getMonths();
+//      for (int i = 0; i < 3000; i ++) {
+//        newMonths[i] = monthNames[i % 12];
+//      }
       months = dfs.getMonths();
     }
 
     @Override
     public String format(int i) {
-      return months[i];
+      final int idx = (i % 12);
+      return months[idx];
     }
   }
 
