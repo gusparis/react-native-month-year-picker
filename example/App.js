@@ -29,7 +29,7 @@ const App = () => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
 
-  const showPicker = useCallback((value) => setShow(value), []);
+  const showPicker = useCallback(value => setShow(value), []);
 
   const onValueChange = useCallback(
     (event, newDate) => {
