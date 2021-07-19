@@ -56,6 +56,6 @@ class MonthNumberPicker extends MonthYearNumberPicker {
 
   @Override
   int getValue() {
-    return monthPicker.getValue();
+    return monthPicker.getValue() % 12;
   }
 }
