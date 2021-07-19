@@ -11,7 +11,7 @@
 #import <React/RCTUtils.h>
 
 #define DEFAULT_YEAR_SIZE 408
-#define DEFAULT_MONTH_SIZE 12000
+#define DEFAULT_MONTH_SIZE 3000
 
 @interface RNMonthPicker() <UIPickerViewDataSource, UIPickerViewDelegate>
 @end

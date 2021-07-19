@@ -1,6 +1,5 @@
 package com.gusparis.monthpicker.builder;
 
-import android.annotation.SuppressLint;
 import android.widget.NumberPicker;
 
 import java.text.DateFormatSymbols;
@@ -49,7 +48,8 @@ public class MonthFormatter {
 
     @Override
     public String format(int i) {
-      return months[i];
+      final int idx = (i % 12);
+      return months[idx];
     }
   }
 
@@ -57,7 +57,8 @@ public class MonthFormatter {
 
     @Override
     public String format(int i) {
-      return String.format("%02d", i + 1);
+      final int idx = (i % 12);
+      return String.format("%02d", idx + 1);
     }
   }
 
@@ -65,7 +66,8 @@ public class MonthFormatter {
 
     @Override
     public String format(int i) {
-      return String.valueOf(i + 1);
+      final int idx = (i % 12);
+      return String.valueOf(idx + 1);
     }
   }
 }
