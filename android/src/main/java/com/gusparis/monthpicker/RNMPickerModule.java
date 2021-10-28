@@ -5,6 +5,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.common.annotations.VisibleForTesting;
 import com.facebook.react.module.annotations.ReactModule;
 import com.gusparis.monthpicker.adapter.RNMonthPickerProps;
@@ -33,12 +34,17 @@ public class RNMPickerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void open(@Nullable ReadableMap options, Promise promise) {
-    FragmentActivity fragmentActivity = (FragmentActivity) getCurrentActivity();
+  public void open(@Nullable final ReadableMap options, final Promise promise) {
+    final FragmentActivity fragmentActivity = (FragmentActivity) getCurrentActivity();
     assert fragmentActivity != null;
 
-    RNMonthPickerProps props = new RNPropsAdapter(options, promise, reactContext);
-    RNMonthPickerDialog mp = new RNMonthPickerDialog(props);
-    mp.show(fragmentActivity.getSupportFragmentManager(), REACT_CLASS);
+    UiThreadUtil.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        RNMonthPickerProps props = new RNPropsAdapter(options, promise, reactContext);
+        RNMonthPickerDialog mp = new RNMonthPickerDialog(props);
+        mp.show(fragmentActivity.getSupportFragmentManager(), REACT_CLASS);
+      }
+    });
   }
 }
