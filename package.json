@@ -4,6 +4,7 @@
   "version": "1.8.0",
   "description": "React Native Month Picker component for iOS & Android",
   "main": "src/index.js",
+  "types": "index.d.ts",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "run:android": "react-native run-android --root=\"./example\"",
