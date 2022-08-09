@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+    <style name="DarkStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">#1F1B24</item>
+    </style>
+    <style name="LightStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">#1F1B24</item>
+        <item name="android:background">#FFFFFF</item>
+    </style>
+</resources>
