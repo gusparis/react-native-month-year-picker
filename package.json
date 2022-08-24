@@ -9,6 +9,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "run:android": "react-native run-android --root=\"./example\"",
     "run:ios": "react-native run-ios --project-path=\"./example/ios\"",
+    "postinstall": "yarn pod:install",
     "pod:install": "cd example/ios && rm -rf Pods/ && pod install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src -c .eslintrc.js --ext js,jsx"
@@ -45,10 +46,10 @@
     "metro-react-native-babel-preset": "^0.66.1",
     "react": "^17.0.2",
     "react-native": "^0.64.2",
-    "semantic-release": "^17.4.4"
+    "semantic-release": "^19.0.5"
   },
   "dependencies": {
     "invariant": "^2.2.4",
-    "moment": "^2.24.0"
+    "moment": "^2.29.4"
   }
 }

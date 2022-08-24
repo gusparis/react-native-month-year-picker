@@ -52,8 +52,7 @@ const App = () => {
         <MonthPicker
           onChange={onValueChange}
           value={date}
-          minimumDate={new Date()}
-          maximumDate={new Date(2022, 5)}
+          maximumDate={new Date()}
           locale="en"
           mode="full"
           autoTheme={false}
