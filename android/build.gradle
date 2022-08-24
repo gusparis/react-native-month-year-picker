@@ -22,6 +22,7 @@ def safeExtGet(prop, fallback) {
 
 apply plugin: 'com.android.library'
 
+
 buildscript {
     // The Android Gradle plugin is only required when opening the android folder stand-alone.
     // This avoids unnecessary downloads and potential conflicts when the library is included as a
@@ -39,6 +40,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.library'
+
 
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
@@ -109,7 +111,8 @@ afterEvaluate { project ->
     task androidJavadoc(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
         classpath += files(android.bootClasspath)
-        classpath += files(project.getConfigurations().getByName('compile').asList())
+        project.getConfigurations().getByName('implementation').setCanBeResolved(true)
+
         include '**/*.java'
     }
 
@@ -140,5 +143,6 @@ afterEvaluate { project ->
 
     task installArchives(type: Upload) {
         configuration = configurations.archives
+
     }
 }
