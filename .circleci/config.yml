@@ -7,7 +7,7 @@ jobs:
   checkout_code:
     executor:
       name: rn/linux_js
-      node_version: "12.10.0"
+      node_version: "14.17"
     steps:
       - checkout
       - persist_to_workspace:
@@ -16,7 +16,7 @@ jobs:
   analyse_js:
     executor:
       name: rn/linux_js
-      node_version: "12.10.0"
+      node_version: "14.17"
     steps:
       - attach_workspace:
           at: .
@@ -35,7 +35,7 @@ jobs:
   publish:
     executor:
       name: rn/linux_js
-      node_version: "12.10.0"
+      node_version: "14.17"
     steps:
       - attach_workspace:
           at: .
