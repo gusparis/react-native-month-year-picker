@@ -9,7 +9,6 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "run:android": "react-native run-android --root=\"./example\"",
     "run:ios": "react-native run-ios --project-path=\"./example/ios\"",
-    "postinstall": "yarn pod:install",
     "pod:install": "cd example/ios && rm -rf Pods/ && pod install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src -c .eslintrc.js --ext js,jsx"
