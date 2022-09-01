@@ -112,7 +112,6 @@ afterEvaluate { project ->
         source = android.sourceSets.main.java.srcDirs
         classpath += files(android.bootClasspath)
         project.getConfigurations().getByName('implementation').setCanBeResolved(true)
-        classpath += files(project.getConfigurations().getByName('implementation').asList())
 
         include '**/*.java'
     }
