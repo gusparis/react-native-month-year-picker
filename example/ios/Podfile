@@ -1,4 +1,4 @@
-platform :ios, "10.0"
+platform :ios, "11.0"
 # https://github.com/facebook/react-native/issues/30002#issuecomment-696594433
 source "https://github.com/CocoaPods/Specs.git"
 # source 'https://cdn.cocoapods.org/'
