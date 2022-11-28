@@ -6,8 +6,6 @@ React Native month picker component for iOS and Android.
 | <p align="center">***Light*** | <img align="center" src="./screenshots/android_light.png" width="120">|<img align="center" src="./screenshots/ios_light.png" width="120">
 | <p align="center">***Dark*** | <img align="center" src="./screenshots/android_dark.png" width="120">|<img align="center" src="./screenshots/ios_dark.png" width="120">
 
-![react-native-month-year-picker](https://github.com/gusparis/react-native-month-year-picker/workflows/react-native-month-year-picker/badge.svg)
-
 ## Getting started
 
 `$ npm install react-native-month-year-picker --save`
